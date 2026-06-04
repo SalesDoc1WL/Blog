@@ -1,8 +1,8 @@
 ---
-import { CALENDLY, LINKEDIN, LIEU, FORMSPREE_ID, EMAIL } from '../lib/url.js';
-const action = FORMSPREE_ID ? `https://formspree.io/f/${FORMSPREE_ID}` : (EMAIL ? `mailto:${EMAIL}` : '');
-const method = FORMSPREE_ID ? 'POST' : 'post';
-const noBackend = !FORMSPREE_ID && !EMAIL;
+import { url, CALENDLY, LINKEDIN, LIEU, WEB3FORMS_KEY, EMAIL } from '../lib/url.js';
+const hasForm = !!WEB3FORMS_KEY;
+// URL de retour absolue (no-JS : Web3Forms redirige ici après envoi)
+const redirectUrl = new URL(url('/?envoye=1'), Astro.site).href + '#contact';
 ---
 <section id="contact" class="reveal">
   <div class="wrap">
@@ -11,37 +11,53 @@ const noBackend = !FORMSPREE_ID && !EMAIL;
     <p class="sec-intro">Décrivez votre contexte en quelques lignes, ou réservez directement un créneau. Je réponds personnellement.</p>
 
     <div class="cgrid">
-      <form action={action || undefined} method={method} enctype={FORMSPREE_ID ? 'multipart/form-data' : undefined}>
-        <div class="field">
-          <label for="nom">Nom</label>
-          <input id="nom" name="nom" type="text" autocomplete="name" required />
+      <div>
+        <div id="form-success" class="form-success" hidden>
+          <strong>Message envoyé.</strong> Merci, je vous réponds rapidement. Vous pouvez aussi <a href={CALENDLY} target="_blank" rel="noopener">réserver un créneau</a>.
         </div>
-        <div class="field">
-          <label for="orga">Organisation</label>
-          <input id="orga" name="organisation" type="text" autocomplete="organization" />
-        </div>
-        <div class="field">
-          <label for="fonction">Fonction</label>
-          <input id="fonction" name="fonction" type="text" autocomplete="organization-title" />
-        </div>
-        <div class="field">
-          <label for="email">E-mail professionnel</label>
-          <input id="email" name="email" type="email" autocomplete="email" required />
-        </div>
-        <div class="field">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5"></textarea>
-        </div>
-        {noBackend ? (
-          <a class="btn btn-primary arrow" href={CALENDLY} target="_blank" rel="noopener">Réserver un échange</a>
+
+        {hasForm ? (
+          <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+            <input type="hidden" name="subject" value="Nouveau contact — site flux documentaires" />
+            <input type="hidden" name="from_name" value="Site Willie Leroux" />
+            <input type="hidden" name="redirect" value={redirectUrl} />
+            <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <div class="field">
+              <label for="nom">Nom</label>
+              <input id="nom" name="nom" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="orga">Organisation</label>
+              <input id="orga" name="organisation" type="text" autocomplete="organization" />
+            </div>
+            <div class="field">
+              <label for="fonction">Fonction</label>
+              <input id="fonction" name="fonction" type="text" autocomplete="organization-title" />
+            </div>
+            <div class="field">
+              <label for="email">E-mail professionnel</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button class="btn btn-primary arrow" type="submit">Envoyer</button>
+            <p class="rgpd">Vos données sont utilisées uniquement pour vous recontacter et ne sont jamais cédées.</p>
+          </form>
         ) : (
-          <button class="btn btn-primary arrow" type="submit">Envoyer</button>
+          <form onsubmit="return false">
+            <div class="field"><label for="nom">Nom</label><input id="nom" type="text" /></div>
+            <div class="field"><label for="orga">Organisation</label><input id="orga" type="text" /></div>
+            <div class="field"><label for="email">E-mail professionnel</label><input id="email" type="email" /></div>
+            <div class="field"><label for="message">Message</label><textarea id="message" rows="5"></textarea></div>
+            <a class="btn btn-primary arrow" href={CALENDLY} target="_blank" rel="noopener">Réserver un échange</a>
+            <p class="rgpd">Le formulaire email sera activé très prochainement. En attendant, réservez un créneau ou écrivez-moi sur LinkedIn. Vos données ne sont jamais cédées.</p>
+          </form>
         )}
-        <p class="rgpd">
-          Vos données sont utilisées uniquement pour vous recontacter et ne sont jamais cédées.
-          {noBackend && " Le formulaire sera activé prochainement — en attendant, réservez un créneau ou écrivez-moi sur LinkedIn."}
-        </p>
-      </form>
+      </div>
 
       <div class="cside">
         <a class="line" href={CALENDLY} target="_blank" rel="noopener">
@@ -52,6 +68,12 @@ const noBackend = !FORMSPREE_ID && !EMAIL;
           <div class="k">LinkedIn</div>
           <div class="v">Willie Leroux →</div>
         </a>
+        {EMAIL && (
+          <a class="line" href={`mailto:${EMAIL}`}>
+            <div class="k">E-mail</div>
+            <div class="v">{EMAIL} →</div>
+          </a>
+        )}
         <div class="line">
           <div class="k">Localisation</div>
           <div class="v">{LIEU}</div>
@@ -60,3 +82,38 @@ const noBackend = !FORMSPREE_ID && !EMAIL;
     </div>
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    // Bandeau succès si retour ?envoye=1 (cas no-JS / redirect Web3Forms)
+    if (location.search.includes('envoye=1')) {
+      var ok = document.getElementById('form-success');
+      if (ok) { ok.hidden = false; }
+      var f = document.getElementById('contact-form');
+      if (f) { f.hidden = true; }
+    }
+    // Envoi AJAX (reste sur la page, affiche le succès en place)
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type=submit]');
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form),
+      }).then(function (r) { return r.json(); }).then(function (data) {
+        if (data.success) {
+          var ok = document.getElementById('form-success');
+          if (ok) ok.hidden = false;
+          form.hidden = true;
+          ok && ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else { throw new Error(data.message || 'Erreur'); }
+      }).catch(function () {
+        if (btn) { btn.disabled = false; btn.textContent = 'Envoyer'; }
+        alert("L'envoi a échoué. Réessayez ou écrivez-moi via LinkedIn / Calendly.");
+      });
+    });
+  })();
+</script>

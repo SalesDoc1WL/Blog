@@ -12,6 +12,8 @@ export function url(path = '/') {
 export const CALENDLY = 'https://calendly.com/willie-leroux38/30min';
 export const LINKEDIN = 'https://www.linkedin.com/in/willie-leroux-docone/';
 export const LIEU = 'Mérignac, Nouvelle-Aquitaine';
-// Formspree : remplacer par l'ID réel une fois l'email pro fourni. Vide => fallback mailto.
-export const FORMSPREE_ID = '';
-export const EMAIL = ''; // ex: 'willie.leroux@exemple.fr' pour le fallback mailto
+// Web3Forms : colle ici la clé d'accès reçue par mail depuis https://web3forms.com
+// (entre l'email wleroux@docone.fr sur le site → la clé arrive par mail).
+// Tant que la clé est vide, le formulaire renvoie vers Calendly.
+export const WEB3FORMS_KEY = '';
+export const EMAIL = 'wleroux@docone.fr'; // destinataire des messages (fallback mailto)
