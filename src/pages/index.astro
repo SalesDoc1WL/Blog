@@ -1,18 +1,25 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import DiagnosticCTA from '../components/DiagnosticCTA.astro';
-import CasCard from '../components/CasCard.astro';
 import Contact from '../components/Contact.astro';
 import { url, CALENDLY } from '../lib/url.js';
-import { secteurLabel } from '../lib/labels.js';
 
 const expertises = (await getCollection('expertises')).sort((a, b) => a.data.ordre - b.data.ordre);
-const secteurs = (await getCollection('secteurs')).sort((a, b) => a.data.ordre - b.data.ordre);
-const casList = (await getCollection('cas', ({ data }) => !data.draft)).sort((a, b) => a.data.ordre - b.data.ordre);
-const casVedette = casList.slice(0, 3);
 const veille = (await getCollection('veille', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 6);
+
+// Vignette par article (photos libres de droit, traitées pour le site)
+const ART_THUMB = {
+  'bpo-courrier-cout-cache': '/img/home/art-bpo.jpg',
+  'nf544-copie-fidele': '/img/home/art-nf544.jpg',
+  'ged-vs-sae': '/img/home/art-gedsae.jpg',
+  'nf461-durees-conservation': '/img/home/art-nf461.jpg',
+  'ere-lre-recommande-electronique': '/img/home/art-ere.jpg',
+  'dematerialiser-courrier-collectivite': '/img/home/art-collectivite.jpg',
+};
+const thumb = (slug) => ART_THUMB[slug] || '/img/home/numerisation.jpg';
+const fmtMois = (d) => d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'short' });
 
 const normes = ['NF 544', 'NF 461', 'NF K11-112', 'ISO 9001', 'ISO 27001', 'HDS', 'eIDAS'];
 
@@ -23,13 +30,20 @@ const stats = [
   { to: 6, suffix: '', lab: 'normes & certifications mobilisées' },
 ];
 
-const fmtDate = (d) => d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' });
+const refs = [
+  { sec: 'Banque', titre: 'Grand groupe bancaire', li: ['~1 400 AR recommandés/jour', 'Copie fidèle NF 544', 'SAE NF 461'] },
+  { sec: 'Secteur public', titre: 'Établissement public financier', li: ['+2 000 courriers/jour', 'Recommandés, sensibles, PND, TSA', 'Traitement centralisé'] },
+  { sec: 'Assurance', titre: 'Assureur national', li: ['Partenariat 15 ans', '~300 AR recommandés/jour', '650 Go en SAE'] },
+  { sec: 'Protection sociale', titre: 'Groupes paritaires & mutuelles', li: ['Plusieurs millions de plis/an', 'Réception, tri, indexation', 'Classification'] },
+  { sec: 'Courtage', titre: 'Courtier en assurances (Est)', li: ['Dématérialisation du courrier entrant', '300 messages/jour', 'Back office libéré'] },
+  { sec: 'Collectivités', titre: 'Secteur public local', li: ['Copie fidèle NF 544', "Courrier entrant d'une régie des eaux", 'Archivage à valeur probante'] },
+];
 
 const jsonld = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   name: 'Willie Leroux — Flux documentaires',
-  description: "Ingénieur d'affaires en flux documentaires : BPO courrier, numérisation NF 544, archivage NF 461, recommandé électronique eIDAS, GED, éditique.",
+  description: "Ingénieur d'affaires, spécialiste de l'éditique et de la communication multimodale : BPO courrier, numérisation NF 544, archivage NF 461, recommandé électronique eIDAS, GED, éditique.",
   areaServed: 'France',
   address: { '@type': 'PostalAddress', addressLocality: 'Mérignac', addressRegion: 'Nouvelle-Aquitaine', addressCountry: 'FR' },
   founder: { '@type': 'Person', name: 'Willie Leroux', jobTitle: "Ingénieur d'affaires" },
@@ -37,146 +51,267 @@ const jsonld = {
 };
 ---
 <BaseLayout jsonld={jsonld}>
-  <!-- HERO -->
-  <div class="hero">
-    <div class="wrap hero-in">
-      <div>
-        <span class="overline">Flux documentaires · entrants &amp; sortants</span>
-        <h1>Combien de jours entre l'arrivée d'un courrier et sa prise en compte réelle ?</h1>
-        <p class="lead">J'aide les directions d'ETI, de PME et d'organismes publics à industrialiser le traitement de leurs documents, du courrier entrant jusqu'à l'archivage à valeur probante.</p>
-        <div class="hero-cta">
-          <a class="btn btn-primary arrow" href={CALENDLY} target="_blank" rel="noopener">Réserver 30 min</a>
-          <a class="btn btn-secondary" href={url('/expertises')}>Voir mes expertises</a>
-        </div>
-      </div>
-      <div class="hero-photo">
-        <img src={url('/img/willie.jpg')} width="320" height="320" alt="Willie Leroux, ingénieur d'affaires" />
-        <div class="cap">Willie Leroux — Ingénieur d'affaires, Mérignac (33)</div>
-      </div>
-    </div>
-  </div>
+  <div class="home-ed">
 
-  <!-- BANDE NORMES -->
-  <div class="normes">
-    <div class="wrap normes-in">
-      <span class="lbl">Conformité mobilisée :</span>
-      {normes.map((n) => <span class="norme">{n}</span>)}
-    </div>
-  </div>
-
-  <!-- POSITIONNEMENT -->
-  <section class="reveal">
-    <div class="wrap">
-      <span class="overline">Positionnement</span>
-      <h2 class="sec-title">Vos documents circulent encore trop lentement.</h2>
-      <p class="sec-intro">J'interviens auprès des DAF, DSI, DG, DGA et Secrétaires Généraux d'organisations de 50 à 5 000 collaborateurs. Le point commun : un courrier entrant traité à la main, des délais qui s'allongent, des archives dont la valeur juridique n'est pas garantie. Mon rôle est de cartographier ces flux et de les remettre sous contrôle.</p>
-    </div>
-  </section>
-
-  <!-- EXPERTISES -->
-  <section id="expertises" class="reveal">
-    <div class="wrap">
-      <span class="overline">Expertises</span>
-      <h2 class="sec-title">Six leviers, du courrier entrant à la confiance numérique.</h2>
-      <div class="tuiles">
-        {expertises.map((e) => (
-          <a class="tuile" href={url(`/expertises/${e.slug}`)}>
-            <span class="norme">{e.data.norme}</span>
-            <h3>{e.data.titre}</h3>
-            <p>{e.data.resume}</p>
-            <span class="more arrow">En savoir plus </span>
-          </a>
-        ))}
-      </div>
-      <div class="sec-head-cta">
-        <a class="btn btn-secondary arrow" href={url('/expertises')}>Toutes les expertises</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- APERÇU SECTEURS -->
-  <section id="secteurs" class="reveal">
-    <div class="wrap">
-      <span class="overline">Secteurs</span>
-      <h2 class="sec-title">Une lecture par métier.</h2>
-      <p class="sec-intro">Les enjeux documentaires diffèrent selon votre secteur. Choisissez le vôtre.</p>
-      <div class="vignettes">
-        {secteurs.map((s) => (
-          <a class="vignette" href={url(`/secteurs/${s.slug}`)}>
-            <b>{s.data.titre}</b>
-            <span>{s.data.resume}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- DIAGNOSTIC -->
-  <DiagnosticCTA id="diagnostic" />
-
-  <!-- RESULTATS -->
-  <section id="resultats" class="reveal">
-    <div class="wrap">
-      <span class="overline">Résultats</span>
-      <h2 class="sec-title">Des volumes critiques, traités sous contrôle.</h2>
-      <div class="stats">
-        {stats.map((s) => (
-          <div class="stat">
-            <div class="num"><span data-to={s.to} data-suffix={s.suffix}>0</span></div>
-            <div class="lab">{s.lab}</div>
+    <!-- HERO -->
+    <section class="ed-hero">
+      <div class="wrap">
+        <span class="overline reveal">Flux documentaires · entrants &amp; sortants</span>
+        <h1 class="reveal">Combien de jours entre l’arrivée d’un courrier et sa <em>prise en compte réelle</em>&#8239;?</h1>
+        <div class="ed-hero-grid no-media">
+          <div class="reveal">
+            <p class="ed-lead">J’aide les directions d’ETI, de PME et d’organismes publics à industrialiser le traitement de leurs documents, du courrier entrant jusqu’à l’archivage à valeur probante.</p>
+            <div class="ed-hero-cta">
+              <a class="btn btn-primary arrow" href={CALENDLY} target="_blank" rel="noopener">Réserver 30&#8239;min</a>
+              <a class="btn btn-secondary" href={url('/expertises')}>Voir mes expertises</a>
+            </div>
           </div>
-        ))}
-      </div>
-      <div class="refs">
-        {casVedette.map((c) => <CasCard cas={c} />)}
-      </div>
-      <div class="sec-head-cta">
-        <a class="btn btn-secondary arrow" href={url('/cas')}>Toute la bibliothèque de cas</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- PARCOURS / PROFIL -->
-  <section id="profil" class="reveal">
-    <div class="wrap">
-      <span class="overline">Parcours</span>
-      <h2 class="sec-title">Qui je suis.</h2>
-      <div class="pc">
-        <div class="pc-item">
-          <div class="when">2025 → aujourd'hui · Mérignac</div>
-          <h3>Ingénieur d'affaires, flux documentaires</h3>
-          <p>BPO courrier, NF 544, NF 461, eIDAS, éditique, signature électronique. J'accompagne les directions dans l'industrialisation et la mise en conformité de leurs flux documentaires.</p>
-        </div>
-        <div class="pc-item">
-          <div class="when">2023 → 2024 · Nouméa</div>
-          <h3>Responsable de compte GED / Reprographie</h3>
-          <p>Transition numérique d'acteurs publics et privés ; pilotage client en contexte de crise majeure.</p>
+          {/* Avatar désactivé pour l'instant — réactiver en restaurant ce bloc :
+          <div class="ed-hero-media reveal">
+            <img class="ed-portrait" src={url('/img/avatar.svg')} width="300" height="400" alt="Willie Leroux — avatar" />
+            <div class="ed-hero-cap">Willie Leroux — Ingénieur d’affaires · DocOne, Mérignac (33)</div>
+          </div>
+          */}
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- APERÇU VEILLE -->
-  <section id="veille" class="reveal">
-    <div class="wrap">
-      <span class="overline">Veille</span>
-      <h2 class="sec-title">Derniers articles.</h2>
-      <div class="refs">
-        {veille.map((a) => (
-          <a class="ref" href={url(`/veille/${a.slug}`)}>
-            <span class="cat-badge">{a.data.categorie}</span>
-            <h3>{a.data.titre}</h3>
-            <p>{a.data.description}</p>
-            <span class="more arrow">Lire </span>
-          </a>
-        ))}
-      </div>
-      <div class="sec-head-cta">
-        <a class="btn btn-secondary arrow" href={url('/veille')}>Toute la veille</a>
+    <!-- MARQUEE NORMES -->
+    <div class="ed-marquee" aria-label="Conformité mobilisée">
+      <div class="track">
+        {[...normes, ...normes].map((n) => <span><b>{n}</b></span>)}
       </div>
     </div>
-  </section>
 
-  <!-- CONTACT -->
-  <Contact />
+    <!-- POSITIONNEMENT -->
+    <section class="ed-sec">
+      <div class="wrap">
+        <div class="ed-eyebrow reveal"><span class="no">01</span><span class="overline">Positionnement</span><span class="rule"></span></div>
+        <h2 class="ed-h2 reveal">Vos documents circulent encore trop lentement.</h2>
+        <p class="ed-intro reveal">J’interviens auprès des DAF, DSI, DG, DGA et Secrétaires Généraux d’organisations de 50 à 5&#8239;000 collaborateurs. Le point commun&#8239;: un courrier entrant traité à la main, des délais qui s’allongent, des archives dont la valeur juridique n’est pas garantie. Mon rôle est de cartographier ces flux et de les remettre sous contrôle.</p>
+      </div>
+    </section>
+
+    <!-- BANDE IMAGE -->
+    <section class="ed-band reveal">
+      <img src={url('/img/home/archives.jpg')} alt="Archives — fichiers et registres" loading="lazy" />
+      <div class="scrim"></div>
+      <div class="cap">
+        <span class="overline">Le constat</span>
+        <h3>Des kilomètres de documents, encore traités au rythme du papier.</h3>
+        <p>Un pli ouvert à la main, un dossier classé à la main&#8239;: c’est du temps perdu, et une valeur juridique qui n’est plus garantie.</p>
+      </div>
+    </section>
+
+    <!-- EXPERTISES (liste numérotée, depuis la collection) -->
+    <section id="expertises" class="ed-sec alt">
+      <div class="wrap">
+        <div class="ed-eyebrow reveal"><span class="no">02</span><span class="overline">Expertises</span><span class="rule"></span></div>
+        <h2 class="ed-h2 reveal">Six leviers, du courrier entrant à la confiance numérique.</h2>
+        <div class="ed-exp">
+          {expertises.map((e, i) => (
+            <a class="reveal" href={url(`/expertises/${e.slug}`)}>
+              <span class="ex-no">{String(i + 1).padStart(2, '0')}</span>
+              <span class="ex-body">
+                <span class="ex-norme">{e.data.norme}</span>
+                <h3>{e.data.titre}</h3>
+                <p>{e.data.resume}</p>
+              </span>
+              <span class="ex-arr">→</span>
+            </a>
+          ))}
+        </div>
+        <div class="ed-sec-cta"><a class="btn btn-secondary arrow" href={url('/expertises')}>Toutes les expertises</a></div>
+      </div>
+    </section>
+
+    <!-- DIAGNOSTIC -->
+    <section id="diagnostic" class="ed-diag">
+      <div class="bgimg" aria-hidden="true"><img src={url('/img/home/diagnostic.jpg')} alt="" loading="lazy" /></div>
+      <span class="ghost" aria-hidden="true">30’</span>
+      <div class="wrap reveal">
+        <span class="overline">Diagnostic de maturité documentaire</span>
+        <h2>Un échange de 30 à 60&#8239;minutes pour cartographier vos flux.</h2>
+        <p>Sans démonstration produit, sans engagement. On regarde ensemble comment vos documents entrent, circulent et sont conservés, et où se trouvent les points de friction. Vous repartez avec une vision claire de votre maturité documentaire et des premières pistes.</p>
+        <a class="btn btn-light" href={CALENDLY} target="_blank" rel="noopener">Réserver mon créneau →</a>
+      </div>
+    </section>
+
+    <!-- RESULTATS -->
+    <section id="resultats" class="ed-sec">
+      <div class="wrap">
+        <div class="ed-eyebrow reveal"><span class="no">03</span><span class="overline">Résultats</span><span class="rule"></span></div>
+        <h2 class="ed-h2 reveal">Des volumes critiques, traités sous contrôle.</h2>
+        <div class="ed-stats reveal">
+          {stats.map((s) => (
+            <div class="ed-stat"><div class="num"><span class="num" data-to={s.to} data-suffix={s.suffix}>0</span></div><div class="lab">{s.lab}</div></div>
+          ))}
+        </div>
+        <div class="ed-refs">
+          {refs.map((r) => (
+            <div class="ed-ref reveal"><span class="ex-norme">{r.sec}</span><h3>{r.titre}</h3><ul>{r.li.map((x) => <li>{x}</li>)}</ul></div>
+          ))}
+        </div>
+        <div class="ed-sec-cta"><a class="btn btn-secondary arrow" href={url('/cas')}>Toute la bibliothèque de cas</a></div>
+      </div>
+    </section>
+
+    <!-- SPLIT : confiance numérique + vidéo -->
+    <section class="ed-split rev reveal">
+      <div class="txt">
+        <span class="overline">Confiance numérique</span>
+        <h2>La valeur juridique ne se décrète pas. Elle se prouve.</h2>
+        <p>Copie fidèle NF 544, archivage NF 461, recommandé eIDAS&#8239;: chaque maillon est tracé, horodaté et opposable. La chaîne de numérisation, de l’ouverture du pli à l’indexation, tient devant un juge.</p>
+      </div>
+      <div class="img">
+        <video src={url('/img/home/ambient.mp4')} poster={url('/img/home/numerisation.jpg')} muted loop autoplay playsinline preload="metadata" aria-label="Chaîne de numérisation"></video>
+      </div>
+    </section>
+
+    <!-- ARTICLES (depuis la collection veille) -->
+    <section id="articles" class="ed-sec alt">
+      <div class="wrap">
+        <div class="ed-eyebrow reveal"><span class="no">04</span><span class="overline">Articles</span><span class="rule"></span></div>
+        <h2 class="ed-h2 reveal">Veille &amp; décryptages.</h2>
+        <p class="ed-intro reveal">Normes, conformité, dématérialisation du courrier&#8239;: de quoi situer votre maturité documentaire sans jargon. Articles de fond et points réglementaires, mis à jour régulièrement.</p>
+        <div class="ed-arts">
+          {veille.map((a) => (
+            <a class="ed-art reveal" href={url(`/veille/${a.slug}`)}>
+              <div class="thumb">
+                <span class="cat">{a.data.categorie}</span>
+                <img src={url(thumb(a.slug))} alt="" loading="lazy" />
+              </div>
+              <div class="b">
+                <h3>{a.data.titre}</h3>
+                <p>{a.data.description}</p>
+                <div class="meta"><time>{fmtMois(a.data.pubDate)}</time><span class="more arrow">Lire</span></div>
+              </div>
+            </a>
+          ))}
+        </div>
+        <div class="ed-sec-cta"><a class="btn btn-secondary arrow" href={url('/veille')}>Toute la veille</a></div>
+      </div>
+    </section>
+
+    <!-- CONTACT (composant existant, Web3Forms) -->
+    <Contact />
+  </div>
 </BaseLayout>
+
+<style>
+  .home-ed { --accent: var(--vert); --accent-h: var(--vert-h); }
+
+  .home-ed em { font-style: normal; color: var(--accent); }
+
+  /* HERO */
+  .ed-hero { padding: clamp(40px,7vw,96px) 0 clamp(32px,5vw,64px); }
+  .ed-hero .overline { margin-bottom: 20px; }
+  .ed-hero h1 { font-size: clamp(2.4rem,6.6vw,5.4rem); line-height: .98; letter-spacing: -.03em; max-width: 16ch; }
+  .ed-hero-grid { display: grid; grid-template-columns: 1.6fr .9fr; gap: clamp(28px,5vw,64px); align-items: end; margin-top: 34px; }
+  .ed-hero-grid.no-media { grid-template-columns: 1fr; }
+  .ed-lead { font-size: clamp(1.05rem,1.6vw,1.3rem); color: var(--t2); max-width: 46ch; border-top: 2px solid var(--t1); padding-top: 20px; }
+  .ed-hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+  .ed-hero-media { position: relative; }
+  .ed-portrait { width: 100%; max-width: 300px; height: auto; aspect-ratio: 3/4; object-fit: cover; display: block; margin-inline: auto; }
+  .ed-hero-cap { font-size: .8rem; color: var(--t-mention,#666); margin-top: 8px; text-align: center; max-width: 300px; margin-inline: auto; }
+  @media (min-width: 881px) { .ed-portrait, .ed-hero-cap { margin-right: 0; } }
+  @media (max-width: 880px) { .ed-hero-grid { grid-template-columns: 1fr; } }
+
+  /* MARQUEE */
+  .ed-marquee { border-block: 1px solid var(--t1); background: var(--t1); overflow: hidden; }
+  .ed-marquee .track { display: flex; gap: 48px; padding: 13px 0; white-space: nowrap; animation: ed-scroll 26s linear infinite; }
+  .ed-marquee span { color: #fff; font-size: .95rem; letter-spacing: .04em; }
+  .ed-marquee b { color: var(--vert-elec); }
+  @keyframes ed-scroll { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .ed-marquee .track { animation: none; } }
+
+  /* SECTIONS */
+  .ed-sec { padding: clamp(52px,8vw,112px) 0; border-bottom: 1px solid var(--border); }
+  .ed-sec.alt { background: var(--alt); }
+  .ed-eyebrow { display: flex; align-items: baseline; gap: 14px; margin-bottom: 26px; }
+  .ed-eyebrow .no { font-size: .8rem; font-weight: 700; color: var(--gris); font-variant-numeric: tabular-nums; }
+  .ed-eyebrow .rule { flex: 1; height: 1px; background: var(--border); }
+  .ed-h2 { font-size: clamp(1.9rem,4.4vw,3.3rem); letter-spacing: -.025em; max-width: 20ch; color: var(--t1); }
+  .ed-intro { font-size: clamp(1.05rem,1.5vw,1.26rem); color: var(--t2); max-width: 60ch; margin-top: 20px; }
+  .ed-sec-cta { margin-top: 30px; }
+
+  /* EXPERTISES numérotées */
+  .ed-exp { margin-top: 42px; border-top: 1px solid var(--t1); }
+  .ed-exp a { display: grid; grid-template-columns: auto 1fr auto; gap: clamp(18px,4vw,56px); align-items: center; padding: clamp(20px,3vw,32px) 0; border-bottom: 1px solid var(--border); text-decoration: none; position: relative; transition: padding-left .25s; }
+  .ed-exp a:hover { padding-left: 14px; }
+  .ed-exp a::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--accent); transition: width .25s; }
+  .ed-exp a:hover::before { width: 4px; }
+  .ed-exp .ex-no { font-size: clamp(1.4rem,3vw,2.4rem); font-weight: 700; color: var(--border); font-variant-numeric: tabular-nums; transition: color .2s; }
+  .ed-exp a:hover .ex-no { color: var(--accent); }
+  .ed-exp .ex-body { min-width: 0; }
+  .ed-exp .ex-norme { font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+  .ed-exp h3 { font-size: clamp(1.25rem,2.4vw,1.9rem); margin: .18em 0 .25em; letter-spacing: -.02em; color: var(--t1); }
+  .ed-exp p { color: var(--t2); max-width: 62ch; font-size: .98rem; }
+  .ed-exp .ex-arr { color: var(--t1); font-size: 1.5rem; transition: transform .2s, color .2s; }
+  .ed-exp a:hover .ex-arr { transform: translateX(6px); color: var(--accent); }
+  @media (max-width: 680px) { .ed-exp a { grid-template-columns: auto 1fr; } .ed-exp .ex-arr { display: none; } }
+
+  /* BANDE IMAGE */
+  .ed-band { position: relative; height: clamp(300px,46vw,520px); overflow: hidden; display: flex; align-items: flex-end; border-bottom: 1px solid var(--border); }
+  .ed-band > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+  .ed-band .scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(8,20,16,.12) 0%, rgba(8,20,16,.34) 45%, rgba(8,20,16,.82) 100%); }
+  .ed-band .cap { position: relative; z-index: 2; color: #fff; padding: clamp(24px,5vw,56px); max-width: 64ch; }
+  .ed-band .cap .overline { color: var(--vert-elec); }
+  .ed-band .cap h3 { color: #fff; font-size: clamp(1.4rem,3.4vw,2.6rem); letter-spacing: -.02em; margin-top: 10px; max-width: 24ch; }
+  .ed-band .cap p { color: rgba(255,255,255,.86); margin-top: 12px; max-width: 54ch; }
+
+  /* DIAGNOSTIC */
+  .ed-diag { background: var(--vert-a); color: #fff; padding: clamp(52px,8vw,112px) 0; position: relative; overflow: hidden; }
+  .ed-diag .bgimg { position: absolute; inset: 0; z-index: 0; opacity: .16; }
+  .ed-diag .bgimg img { width: 100%; height: 100%; object-fit: cover; }
+  .ed-diag .ghost { position: absolute; right: -4%; top: 50%; transform: translateY(-50%); font-size: clamp(8rem,26vw,22rem); font-weight: 700; color: rgba(255,255,255,.05); pointer-events: none; z-index: 1; }
+  .ed-diag .wrap { position: relative; z-index: 2; }
+  .ed-diag .overline { color: var(--vert-elec); }
+  .ed-diag h2 { color: #fff; font-size: clamp(1.9rem,4.6vw,3.3rem); max-width: 18ch; letter-spacing: -.025em; }
+  .ed-diag p { color: rgba(255,255,255,.86); max-width: 58ch; margin: 18px 0 28px; font-size: 1.12rem; }
+  .btn-light { background: #fff; color: var(--vert-a); border: 1px solid #fff; }
+  .btn-light:hover { background: #eafff7; }
+
+  /* STATS */
+  .ed-stats { display: grid; grid-template-columns: repeat(2,1fr); margin-top: 38px; border-top: 1px solid var(--t1); border-left: 1px solid var(--border); }
+  .ed-stat { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: clamp(24px,4vw,42px); }
+  .ed-stat .num { font-size: clamp(2.6rem,7vw,5rem); font-weight: 700; color: var(--accent); letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .ed-stat .lab { margin-top: 14px; color: var(--t2); font-size: .98rem; max-width: 34ch; }
+  @media (max-width: 680px) { .ed-stats { grid-template-columns: 1fr; } }
+
+  /* REFS */
+  .ed-refs { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 44px; }
+  .ed-ref { background: #fff; padding: clamp(20px,2.6vw,28px); }
+  .ed-ref .ex-norme { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+  .ed-ref h3 { font-size: 1.12rem; margin: .4em 0 .5em; color: var(--t1); }
+  .ed-ref ul { margin: 0; padding: 0; list-style: none; }
+  .ed-ref li { position: relative; padding-left: 18px; font-size: .92rem; color: var(--t2); margin-bottom: .4em; }
+  .ed-ref li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+  @media (max-width: 900px) { .ed-refs { grid-template-columns: 1fr; } }
+
+  /* SPLIT + VIDEO */
+  .ed-split { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; border-bottom: 1px solid var(--border); }
+  .ed-split.rev { direction: rtl; }
+  .ed-split.rev > * { direction: ltr; }
+  .ed-split .txt { padding: clamp(44px,7vw,90px) clamp(20px,5vw,64px); display: flex; flex-direction: column; justify-content: center; }
+  .ed-split .txt h2 { font-size: clamp(1.7rem,3.4vw,2.6rem); letter-spacing: -.02em; margin: 12px 0 16px; max-width: 18ch; color: var(--t1); }
+  .ed-split .txt p { color: var(--t2); max-width: 46ch; font-size: 1.05rem; }
+  .ed-split .img { position: relative; min-height: 360px; background: var(--vert-a); }
+  .ed-split .img video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 840px) { .ed-split { grid-template-columns: 1fr; } .ed-split.rev { direction: ltr; } .ed-split .img { min-height: 280px; order: -1; } }
+
+  /* ARTICLES */
+  .ed-arts { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 44px; }
+  .ed-art { background: #fff; text-decoration: none; display: flex; flex-direction: column; transition: transform .2s; }
+  .ed-art:hover { transform: translateY(-3px); }
+  .ed-art .thumb { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+  .ed-art .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .ed-art .cat { position: absolute; top: 10px; left: 10px; z-index: 2; background: rgba(12,20,17,.84); color: #fff; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; padding: .32em .62em; }
+  .ed-art .b { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 9px; flex: 1; border-top: 3px solid var(--accent); }
+  .ed-art h3 { font-size: 1.12rem; letter-spacing: -.01em; color: var(--t1); }
+  .ed-art p { color: var(--t2); font-size: .9rem; flex: 1; }
+  .ed-art .meta { display: flex; justify-content: space-between; align-items: center; }
+  .ed-art .meta time { font-size: .78rem; color: var(--t-mention,#666); }
+  .ed-art .more { color: var(--accent); font-weight: 500; font-size: .88rem; }
+  @media (max-width: 900px) { .ed-arts { grid-template-columns: 1fr; } }
+</style>
