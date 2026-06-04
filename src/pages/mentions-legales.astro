@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { LINKEDIN, LIEU } from '../lib/url.js';
+---
+<BaseLayout title="Mentions légales" description="Mentions légales et politique de données du site de Willie Leroux, ingénieur d'affaires en flux documentaires.">
+  <Breadcrumb items={[{ label: 'Mentions légales' }]} />
+  <header class="page-head">
+    <div class="wrap">
+      <span class="overline">Informations</span>
+      <h1>Mentions légales</h1>
+    </div>
+  </header>
+
+  <section class="reveal">
+    <div class="wrap">
+      <article class="prose">
+        <h2>Éditeur</h2>
+        <p>Willie Leroux — Ingénieur d'affaires, flux documentaires. {LIEU}.<br />
+        Contact : via <a href={LINKEDIN} target="_blank" rel="noopener">LinkedIn</a> ou le formulaire du site.</p>
+
+        <h2>Hébergement</h2>
+        <p>Site statique hébergé sur GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis).</p>
+
+        <h2>Données personnelles</h2>
+        <p>Les informations transmises via le formulaire de contact (nom, organisation, fonction, e-mail, message) sont utilisées uniquement pour répondre à votre demande. Elles ne sont jamais cédées ni revendues à des tiers. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données : il suffit d'en faire la demande via le formulaire ou LinkedIn.</p>
+
+        <h2>Cookies</h2>
+        <p>Ce site n'utilise pas de cookie de suivi publicitaire. Les outils tiers liés (Calendly, LinkedIn) sont soumis à leurs propres politiques.</p>
+
+        <h2>Propriété intellectuelle</h2>
+        <p>Les contenus de ce site sont la propriété de leur auteur. Ce site s'inspire des codes du Système de Design de l'État (police Marianne, structure institutionnelle) sans reproduire le bloc-marque « République Française » ni la Marianne tricolore, réservés aux sites de l'État.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

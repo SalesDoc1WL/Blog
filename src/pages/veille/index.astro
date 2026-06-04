@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import DiagnosticCTA from '../../components/DiagnosticCTA.astro';
+import { url } from '../../lib/url.js';
+
+const articles = (await getCollection('veille', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const categories = [...new Set(articles.map((a) => a.data.categorie))];
+const fmtDate = (d) => d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<BaseLayout title="Veille" description="Veille flux documentaires : réglementation, archivage à valeur probante, courrier & BPO, signature et confiance numérique, secteur public.">
+  <Breadcrumb items={[{ label: 'Veille' }]} />
+  <header class="page-head">
+    <div class="wrap">
+      <span class="overline">Veille</span>
+      <h1>Comprendre les flux documentaires.</h1>
+      <p>Réglementation, archivage, courrier, confiance numérique : des repères concrets pour les directions qui veulent reprendre le contrôle de leurs documents.</p>
+    </div>
+  </header>
+
+  <section class="reveal">
+    <div class="wrap">
+      <div class="filter-group">
+        <button class="chip active" data-value="*" aria-pressed="true">Toutes</button>
+        {categories.map((c) => <button class="chip" data-value={c} aria-pressed="false">{c}</button>)}
+      </div>
+
+      <div class="refs" id="veille-grid" style="margin-top:32px;">
+        {articles.map((a) => (
+          <a class="ref veille-item" href={url(`/veille/${a.slug}`)} data-cat={a.data.categorie}>
+            <span class="cat-badge">{a.data.categorie}</span>
+            <h3>{a.data.titre}</h3>
+            <p>{a.data.description}</p>
+            <span class="post-meta" style="margin-top:auto;padding-top:12px;"><time datetime={a.data.pubDate.toISOString()}>{fmtDate(a.data.pubDate)}</time></span>
+          </a>
+        ))}
+      </div>
+      <p id="veille-empty" class="muted" style="display:none;margin-top:24px;">Aucun article dans cette catégorie.</p>
+    </div>
+  </section>
+
+  <DiagnosticCTA aside={false} />
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    const items = [...document.querySelectorAll('.veille-item')];
+    const empty = document.getElementById('veille-empty');
+    document.querySelectorAll('.chip[data-value]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const val = btn.dataset.value;
+        document.querySelectorAll('.chip[data-value]').forEach((b) => {
+          const on = b === btn; b.classList.toggle('active', on); b.setAttribute('aria-pressed', String(on));
+        });
+        let visible = 0;
+        items.forEach((el) => {
+          const show = val === '*' || el.dataset.cat === val;
+          el.style.display = show ? '' : 'none'; if (show) visible++;
+        });
+        if (empty) empty.style.display = visible === 0 ? '' : 'none';
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { url } from '../lib/url.js';
+
+const {
+  title,
+  description = "Willie Leroux, ingénieur d'affaires en flux documentaires : courrier entrant (BPO), numérisation NF 544, archivage électronique NF 461, recommandé électronique eIDAS. Diagnostic de maturité documentaire pour ETI, PME et organismes publics.",
+  ogImage = '/img/willie.jpg',
+  type = 'website',
+  jsonld = null,
+} = Astro.props;
+
+const titreComplet = title ? `${title} — Willie Leroux` : "Willie Leroux — Flux documentaires";
+const canonical = Astro.url.href;
+const ogAbs = new URL(url(ogImage), Astro.site).href;
+const jsonldList = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
+---
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{titreComplet}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content={type} />
+  <meta property="og:title" content={titreComplet} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogAbs} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Willie Leroux — Flux documentaires" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={titreComplet} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogAbs} />
+
+  <link rel="alternate" type="application/rss+xml" title="Veille — Willie Leroux" href={url('/rss.xml')} />
+
+  {jsonldList.map((data) => (
+    <script type="application/ld+json" set:html={JSON.stringify(data)} />
+  ))}
+
+  <!-- Active les animations d'apparition uniquement si JS est dispo -->
+  <script is:inline>document.documentElement.classList.add('js-anim');</script>
+</head>
+<body>
+  <a class="skip" href="#main" style="position:absolute;left:-9999px;">Aller au contenu</a>
+  <Header />
+  <main id="main"><slot /></main>
+  <Footer />
+  <script src={url('/scripts/reveal.js')} is:inline></script>
+</body>
+</html>

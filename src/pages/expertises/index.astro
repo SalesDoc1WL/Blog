@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import DiagnosticCTA from '../../components/DiagnosticCTA.astro';
+import { url } from '../../lib/url.js';
+
+const expertises = (await getCollection('expertises')).sort((a, b) => a.data.ordre - b.data.ordre);
+---
+<BaseLayout title="Expertises" description="Six expertises en flux documentaires : courrier entrant (BPO), numérisation NF 544, archivage NF 461, recommandé électronique eIDAS, GED et éditique.">
+  <Breadcrumb items={[{ label: 'Expertises' }]} />
+  <header class="page-head">
+    <div class="wrap">
+      <span class="overline">Expertises</span>
+      <h1>Du courrier entrant à la confiance numérique.</h1>
+      <p>Six leviers pour industrialiser et sécuriser vos flux documentaires, entrants comme sortants.</p>
+    </div>
+  </header>
+
+  <section class="reveal">
+    <div class="wrap">
+      <div class="tuiles">
+        {expertises.map((e) => (
+          <a class="tuile" href={url(`/expertises/${e.slug}`)}>
+            <span class="norme">{e.data.norme}</span>
+            <h3>{e.data.titre}</h3>
+            <p>{e.data.resume}</p>
+            <span class="more arrow">En savoir plus </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <DiagnosticCTA />
+</BaseLayout>

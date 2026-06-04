@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import DiagnosticCTA from '../../components/DiagnosticCTA.astro';
+import { url } from '../../lib/url.js';
+
+const secteurs = (await getCollection('secteurs')).sort((a, b) => a.data.ordre - b.data.ordre);
+---
+<BaseLayout title="Secteurs" description="Flux documentaires par secteur : banque, secteur public, assurance, protection sociale, courtage, collectivités.">
+  <Breadcrumb items={[{ label: 'Secteurs' }]} />
+  <header class="page-head">
+    <div class="wrap">
+      <span class="overline">Secteurs</span>
+      <h1>Une lecture par métier.</h1>
+      <p>Les enjeux documentaires diffèrent selon votre secteur. Voici comment j'interviens dans le vôtre.</p>
+    </div>
+  </header>
+
+  <section class="reveal">
+    <div class="wrap">
+      <div class="vignettes">
+        {secteurs.map((s) => (
+          <a class="vignette" href={url(`/secteurs/${s.slug}`)}>
+            <b>{s.data.titre}</b>
+            <span>{s.data.resume}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <DiagnosticCTA />
+</BaseLayout>

@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import DiagnosticCTA from '../../components/DiagnosticCTA.astro';
+import RelatedList from '../../components/RelatedList.astro';
+import CasCard from '../../components/CasCard.astro';
+import { EXPERTISE_TAGS, secteurLabel } from '../../lib/labels.js';
+
+export async function getStaticPaths() {
+  const expertises = await getCollection('expertises');
+  return expertises.map((e) => ({ params: { slug: e.slug }, props: { entry: e } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const casList = (await getCollection('cas', ({ data }) => !data.draft))
+  .filter((c) => c.data.expertises.includes(entry.slug))
+  .sort((a, b) => a.data.ordre - b.data.ordre);
+
+const tags = EXPERTISE_TAGS[entry.slug] ?? [];
+const veille = (await getCollection('veille', ({ data }) => !data.draft))
+  .filter((a) => a.data.tags.some((t) => tags.some((k) => t.toLowerCase().includes(k.toLowerCase()))))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const secteurLinks = entry.data.secteursLies.map((s) => ({ href: `/secteurs/${s}`, label: secteurLabel(s) }));
+const veilleLinks = veille.map((a) => ({ href: `/veille/${a.slug}`, label: a.data.titre }));
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: entry.data.titre,
+  serviceType: entry.data.norme,
+  description: entry.data.resume,
+  provider: { '@type': 'Person', name: 'Willie Leroux' },
+};
+---
+<BaseLayout title={entry.data.titre} description={entry.data.seoDescription ?? entry.data.resume} jsonld={jsonld}>
+  <Breadcrumb items={[{ label: 'Expertises', href: '/expertises' }, { label: entry.data.titre }]} />
+  <header class="page-head">
+    <div class="wrap">
+      <span class="overline">{entry.data.norme}</span>
+      <h1>{entry.data.titre}</h1>
+      <p>{entry.data.resume}</p>
+    </div>
+  </header>
+
+  <section class="reveal">
+    <div class="wrap">
+      <article class="prose"><Content /></article>
+    </div>
+  </section>
+
+  {casList.length > 0 && (
+    <section class="reveal">
+      <div class="wrap">
+        <span class="overline">Cas liés</span>
+        <h2 class="sec-title">Cette expertise en situation.</h2>
+        <div class="refs">{casList.map((c) => <CasCard cas={c} />)}</div>
+      </div>
+    </section>
+  )}
+
+  {(secteurLinks.length > 0 || veilleLinks.length > 0) && (
+    <section class="reveal">
+      <div class="wrap">
+        <RelatedList titre="Secteurs concernés" links={secteurLinks} />
+        <RelatedList titre="À lire dans la veille" links={veilleLinks} />
+      </div>
+    </section>
+  )}
+
+  <DiagnosticCTA />
+</BaseLayout>

@@ -1,0 +1,182 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DiagnosticCTA from '../components/DiagnosticCTA.astro';
+import CasCard from '../components/CasCard.astro';
+import Contact from '../components/Contact.astro';
+import { url, CALENDLY } from '../lib/url.js';
+import { secteurLabel } from '../lib/labels.js';
+
+const expertises = (await getCollection('expertises')).sort((a, b) => a.data.ordre - b.data.ordre);
+const secteurs = (await getCollection('secteurs')).sort((a, b) => a.data.ordre - b.data.ordre);
+const casList = (await getCollection('cas', ({ data }) => !data.draft)).sort((a, b) => a.data.ordre - b.data.ordre);
+const casVedette = casList.slice(0, 3);
+const veille = (await getCollection('veille', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
+
+const normes = ['NF 544', 'NF 461', 'NF K11-112', 'ISO 9001', 'ISO 27001', 'HDS', 'eIDAS'];
+
+const stats = [
+  { to: 2000, suffix: '+', lab: 'courriers/jour — établissement public financier' },
+  { to: 15, suffix: ' ans', lab: 'de partenariat — assureur national' },
+  { to: 30000, suffix: '', lab: 'plis postaux/an — acteur du financement' },
+  { to: 6, suffix: '', lab: 'normes & certifications mobilisées' },
+];
+
+const fmtDate = (d) => d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' });
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Willie Leroux — Flux documentaires',
+  description: "Ingénieur d'affaires en flux documentaires : BPO courrier, numérisation NF 544, archivage NF 461, recommandé électronique eIDAS, GED, éditique.",
+  areaServed: 'France',
+  address: { '@type': 'PostalAddress', addressLocality: 'Mérignac', addressRegion: 'Nouvelle-Aquitaine', addressCountry: 'FR' },
+  founder: { '@type': 'Person', name: 'Willie Leroux', jobTitle: "Ingénieur d'affaires" },
+  knowsAbout: ['BPO courrier entrant', 'Numérisation NF 544', 'Archivage électronique NF 461', 'Recommandé électronique eIDAS', 'GED', 'Éditique'],
+};
+---
+<BaseLayout jsonld={jsonld}>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-in">
+      <div>
+        <span class="overline">Flux documentaires · entrants &amp; sortants</span>
+        <h1>Combien de jours entre l'arrivée d'un courrier et sa prise en compte réelle ?</h1>
+        <p class="lead">J'aide les directions d'ETI, de PME et d'organismes publics à industrialiser le traitement de leurs documents, du courrier entrant jusqu'à l'archivage à valeur probante.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary arrow" href={CALENDLY} target="_blank" rel="noopener">Réserver 30 min</a>
+          <a class="btn btn-secondary" href={url('/expertises')}>Voir mes expertises</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src={url('/img/willie.jpg')} width="320" height="320" alt="Willie Leroux, ingénieur d'affaires" />
+        <div class="cap">Willie Leroux — Ingénieur d'affaires, Mérignac (33)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANDE NORMES -->
+  <div class="normes">
+    <div class="wrap normes-in">
+      <span class="lbl">Conformité mobilisée :</span>
+      {normes.map((n) => <span class="norme">{n}</span>)}
+    </div>
+  </div>
+
+  <!-- POSITIONNEMENT -->
+  <section class="reveal">
+    <div class="wrap">
+      <span class="overline">Positionnement</span>
+      <h2 class="sec-title">Vos documents circulent encore trop lentement.</h2>
+      <p class="sec-intro">J'interviens auprès des DAF, DSI, DG, DGA et Secrétaires Généraux d'organisations de 50 à 5 000 collaborateurs. Le point commun : un courrier entrant traité à la main, des délais qui s'allongent, des archives dont la valeur juridique n'est pas garantie. Mon rôle est de cartographier ces flux et de les remettre sous contrôle.</p>
+    </div>
+  </section>
+
+  <!-- EXPERTISES -->
+  <section id="expertises" class="reveal">
+    <div class="wrap">
+      <span class="overline">Expertises</span>
+      <h2 class="sec-title">Six leviers, du courrier entrant à la confiance numérique.</h2>
+      <div class="tuiles">
+        {expertises.map((e) => (
+          <a class="tuile" href={url(`/expertises/${e.slug}`)}>
+            <span class="norme">{e.data.norme}</span>
+            <h3>{e.data.titre}</h3>
+            <p>{e.data.resume}</p>
+            <span class="more arrow">En savoir plus </span>
+          </a>
+        ))}
+      </div>
+      <div class="sec-head-cta">
+        <a class="btn btn-secondary arrow" href={url('/expertises')}>Toutes les expertises</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- APERÇU SECTEURS -->
+  <section id="secteurs" class="reveal">
+    <div class="wrap">
+      <span class="overline">Secteurs</span>
+      <h2 class="sec-title">Une lecture par métier.</h2>
+      <p class="sec-intro">Les enjeux documentaires diffèrent selon votre secteur. Choisissez le vôtre.</p>
+      <div class="vignettes">
+        {secteurs.map((s) => (
+          <a class="vignette" href={url(`/secteurs/${s.slug}`)}>
+            <b>{s.data.titre}</b>
+            <span>{s.data.resume}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- DIAGNOSTIC -->
+  <DiagnosticCTA id="diagnostic" />
+
+  <!-- RESULTATS -->
+  <section id="resultats" class="reveal">
+    <div class="wrap">
+      <span class="overline">Résultats</span>
+      <h2 class="sec-title">Des volumes critiques, traités sous contrôle.</h2>
+      <div class="stats">
+        {stats.map((s) => (
+          <div class="stat">
+            <div class="num"><span data-to={s.to} data-suffix={s.suffix}>0</span></div>
+            <div class="lab">{s.lab}</div>
+          </div>
+        ))}
+      </div>
+      <div class="refs">
+        {casVedette.map((c) => <CasCard cas={c} />)}
+      </div>
+      <div class="sec-head-cta">
+        <a class="btn btn-secondary arrow" href={url('/cas')}>Toute la bibliothèque de cas</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCOURS / PROFIL -->
+  <section id="profil" class="reveal">
+    <div class="wrap">
+      <span class="overline">Parcours</span>
+      <h2 class="sec-title">Qui je suis.</h2>
+      <div class="pc">
+        <div class="pc-item">
+          <div class="when">2025 → aujourd'hui · Mérignac</div>
+          <h3>Ingénieur d'affaires, flux documentaires</h3>
+          <p>BPO courrier, NF 544, NF 461, eIDAS, éditique, signature électronique. J'accompagne les directions dans l'industrialisation et la mise en conformité de leurs flux documentaires.</p>
+        </div>
+        <div class="pc-item">
+          <div class="when">2023 → 2024 · Nouméa</div>
+          <h3>Responsable de compte GED / Reprographie</h3>
+          <p>Transition numérique d'acteurs publics et privés ; pilotage client en contexte de crise majeure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APERÇU VEILLE -->
+  <section id="veille" class="reveal">
+    <div class="wrap">
+      <span class="overline">Veille</span>
+      <h2 class="sec-title">Derniers articles.</h2>
+      <div class="refs">
+        {veille.map((a) => (
+          <a class="ref" href={url(`/veille/${a.slug}`)}>
+            <span class="cat-badge">{a.data.categorie}</span>
+            <h3>{a.data.titre}</h3>
+            <p>{a.data.description}</p>
+            <span class="more arrow">Lire </span>
+          </a>
+        ))}
+      </div>
+      <div class="sec-head-cta">
+        <a class="btn btn-secondary arrow" href={url('/veille')}>Toute la veille</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <Contact />
+</BaseLayout>

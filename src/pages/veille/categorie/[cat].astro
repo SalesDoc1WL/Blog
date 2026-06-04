@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import DiagnosticCTA from '../../../components/DiagnosticCTA.astro';
+import { url } from '../../../lib/url.js';
+import { slugifyCat } from '../../../lib/labels.js';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('veille', ({ data }) => !data.draft);
+  const cats = [...new Set(articles.map((a) => a.data.categorie))];
+  return cats.map((cat) => ({
+    params: { cat: slugifyCat(cat) },
+    props: {
+      categorie: cat,
+      articles: articles.filter((a) => a.data.categorie === cat)
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
+}
+
+const { categorie, articles } = Astro.props;
+const fmtDate = (d) => d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<BaseLayout title={`Veille — ${categorie}`} description={`Articles de veille dans la catégorie ${categorie} : flux documentaires.`}>
+  <Breadcrumb items={[{ label: 'Veille', href: '/veille' }, { label: categorie }]} />
+  <header class="page-head">
+    <div class="wrap">
+      <span class="overline">Veille · catégorie</span>
+      <h1>{categorie}</h1>
+    </div>
+  </header>
+
+  <section class="reveal">
+    <div class="wrap">
+      <div class="refs">
+        {articles.map((a) => (
+          <a class="ref" href={url(`/veille/${a.slug}`)}>
+            <span class="cat-badge">{a.data.categorie}</span>
+            <h3>{a.data.titre}</h3>
+            <p>{a.data.description}</p>
+            <span class="post-meta" style="margin-top:auto;padding-top:12px;"><time datetime={a.data.pubDate.toISOString()}>{fmtDate(a.data.pubDate)}</time></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <DiagnosticCTA aside={false} />
+</BaseLayout>

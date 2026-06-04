@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import DiagnosticCTA from '../../components/DiagnosticCTA.astro';
+import { url } from '../../lib/url.js';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('veille', ({ data }) => !data.draft);
+  return articles.map((a) => ({ params: { slug: a.slug }, props: { entry: a } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const d = entry.data;
+const fmtDate = (x) => x.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const related = (await getCollection('veille', ({ data }) => !data.draft))
+  .filter((a) => a.slug !== entry.slug && a.data.categorie === d.categorie)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: d.titre,
+  description: d.description,
+  datePublished: d.pubDate.toISOString(),
+  ...(d.updatedDate ? { dateModified: d.updatedDate.toISOString() } : {}),
+  author: { '@type': 'Person', name: 'Willie Leroux' },
+  keywords: d.tags.join(', '),
+  articleSection: d.categorie,
+};
+---
+<BaseLayout title={d.titre} description={d.description} type="article" jsonld={jsonld}>
+  <Breadcrumb items={[{ label: 'Veille', href: '/veille' }, { label: d.titre }]} />
+  <header class="page-head">
+    <div class="wrap">
+      <span class="cat-badge">{d.categorie}</span>
+      <h1>{d.titre}</h1>
+      <p class="post-meta" style="margin-top:14px;">
+        <time datetime={d.pubDate.toISOString()}>Publié le {fmtDate(d.pubDate)}</time>
+        {d.updatedDate && <span>· Mis à jour le {fmtDate(d.updatedDate)}</span>}
+      </p>
+    </div>
+  </header>
+
+  <section class="reveal">
+    <div class="wrap">
+      <article class="prose"><Content /></article>
+      {d.tags.length > 0 && (
+        <div class="filter-group" style="margin-top:32px;">
+          <span class="gl">Tags</span>
+          {d.tags.map((t) => <span class="chip" style="cursor:default;">{t}</span>)}
+        </div>
+      )}
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="reveal">
+      <div class="wrap">
+        <span class="overline">Veille</span>
+        <h2 class="sec-title">À lire ensuite.</h2>
+        <div class="refs">
+          {related.map((a) => (
+            <a class="ref" href={url(`/veille/${a.slug}`)}>
+              <span class="cat-badge">{a.data.categorie}</span>
+              <h3>{a.data.titre}</h3>
+              <p>{a.data.description}</p>
+              <span class="more arrow">Lire </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <DiagnosticCTA />
+</BaseLayout>

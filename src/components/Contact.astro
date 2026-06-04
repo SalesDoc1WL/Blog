@@ -1,0 +1,62 @@
+---
+import { CALENDLY, LINKEDIN, LIEU, FORMSPREE_ID, EMAIL } from '../lib/url.js';
+const action = FORMSPREE_ID ? `https://formspree.io/f/${FORMSPREE_ID}` : (EMAIL ? `mailto:${EMAIL}` : '');
+const method = FORMSPREE_ID ? 'POST' : 'post';
+const noBackend = !FORMSPREE_ID && !EMAIL;
+---
+<section id="contact" class="reveal">
+  <div class="wrap">
+    <span class="overline">Contact</span>
+    <h2 class="sec-title">Parlons de vos flux documentaires.</h2>
+    <p class="sec-intro">Décrivez votre contexte en quelques lignes, ou réservez directement un créneau. Je réponds personnellement.</p>
+
+    <div class="cgrid">
+      <form action={action || undefined} method={method} enctype={FORMSPREE_ID ? 'multipart/form-data' : undefined}>
+        <div class="field">
+          <label for="nom">Nom</label>
+          <input id="nom" name="nom" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="orga">Organisation</label>
+          <input id="orga" name="organisation" type="text" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="fonction">Fonction</label>
+          <input id="fonction" name="fonction" type="text" autocomplete="organization-title" />
+        </div>
+        <div class="field">
+          <label for="email">E-mail professionnel</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5"></textarea>
+        </div>
+        {noBackend ? (
+          <a class="btn btn-primary arrow" href={CALENDLY} target="_blank" rel="noopener">Réserver un échange</a>
+        ) : (
+          <button class="btn btn-primary arrow" type="submit">Envoyer</button>
+        )}
+        <p class="rgpd">
+          Vos données sont utilisées uniquement pour vous recontacter et ne sont jamais cédées.
+          {noBackend && " Le formulaire sera activé prochainement — en attendant, réservez un créneau ou écrivez-moi sur LinkedIn."}
+        </p>
+      </form>
+
+      <div class="cside">
+        <a class="line" href={CALENDLY} target="_blank" rel="noopener">
+          <div class="k">Rendez-vous</div>
+          <div class="v">Réserver 30 min →</div>
+        </a>
+        <a class="line" href={LINKEDIN} target="_blank" rel="noopener">
+          <div class="k">LinkedIn</div>
+          <div class="v">Willie Leroux →</div>
+        </a>
+        <div class="line">
+          <div class="k">Localisation</div>
+          <div class="v">{LIEU}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

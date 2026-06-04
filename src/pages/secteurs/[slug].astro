@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import DiagnosticCTA from '../../components/DiagnosticCTA.astro';
+import RelatedList from '../../components/RelatedList.astro';
+import CasCard from '../../components/CasCard.astro';
+import { expertiseLabel } from '../../lib/labels.js';
+
+export async function getStaticPaths() {
+  const secteurs = await getCollection('secteurs');
+  return secteurs.map((s) => ({ params: { slug: s.slug }, props: { entry: s } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const casList = (await getCollection('cas', ({ data }) => !data.draft))
+  .filter((c) => c.data.secteur === entry.slug)
+  .sort((a, b) => a.data.ordre - b.data.ordre);
+
+const expertiseLinks = entry.data.expertisesPertinentes.map((e) => ({ href: `/expertises/${e}`, label: expertiseLabel(e) }));
+---
+<BaseLayout title={`${entry.data.titre} — flux documentaires`} description={entry.data.seoDescription ?? entry.data.resume}>
+  <Breadcrumb items={[{ label: 'Secteurs', href: '/secteurs' }, { label: entry.data.titre }]} />
+  <header class="page-head">
+    <div class="wrap">
+      <span class="overline">Secteur</span>
+      <h1>{entry.data.titre}</h1>
+      <p>{entry.data.resume}</p>
+    </div>
+  </header>
+
+  <section class="reveal">
+    <div class="wrap">
+      <article class="prose"><Content /></article>
+    </div>
+  </section>
+
+  {expertiseLinks.length > 0 && (
+    <section class="reveal">
+      <div class="wrap">
+        <RelatedList titre="Expertises pertinentes pour ce secteur" links={expertiseLinks} />
+      </div>
+    </section>
+  )}
+
+  {casList.length > 0 && (
+    <section class="reveal">
+      <div class="wrap">
+        <span class="overline">Cas du secteur</span>
+        <h2 class="sec-title">Ce que j'ai réalisé dans ce secteur.</h2>
+        <div class="refs">{casList.map((c) => <CasCard cas={c} />)}</div>
+      </div>
+    </section>
+  )}
+
+  <DiagnosticCTA />
+</BaseLayout>

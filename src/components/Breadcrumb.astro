@@ -1,0 +1,28 @@
+---
+import { url } from '../lib/url.js';
+// items: [{ label, href? }]  — le dernier = page courante (sans href)
+const { items = [] } = Astro.props;
+const site = Astro.site?.toString().replace(/\/$/, '') || '';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const full = [{ label: 'Accueil', href: '/' }, ...items];
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: full.map((it, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: it.label,
+    ...(it.href ? { item: site + base + (it.href === '/' ? '' : it.href) } : {}),
+  })),
+};
+---
+<nav class="breadcrumb" aria-label="Fil d'Ariane">
+  <div class="wrap">
+    <ol>
+      {full.map((it) => (
+        <li>{it.href ? <a href={url(it.href)}>{it.label}</a> : <span aria-current="page">{it.label}</span>}</li>
+      ))}
+    </ol>
+  </div>
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(jsonld)} />

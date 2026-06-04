@@ -1,0 +1,297 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Willie Leroux — Flux documentaires</title>
+<style>
+  @font-face{font-family:'Marianne';src:url('https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+  @font-face{font-family:'Marianne';src:url('https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+  @font-face{font-family:'Marianne';src:url('https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+  :root{
+    --vert:#00906C; --vert-h:#006e52; --vert-a:#00543f;
+    --gris:#707070; --gris-fonce:#4a4a4a; --vert-elec:#00C896;
+    --t1:#161616; --t2:#3a3a3a; --t-mention:#666;
+    --bg:#ffffff; --alt:#f5f7f6; --contrast:#eceeed; --callout:#edf6f2;
+    --border:#dddddd; --border-vert:#bfe0d5;
+    --ff:'Marianne',Arial,sans-serif;
+    --max:1248px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--ff);background:var(--bg);color:var(--t2);font-size:1rem;line-height:1.6}
+  a{color:var(--vert);text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:var(--ff);color:var(--t1);line-height:1.2;font-weight:700}
+  .overline{font-size:.875rem;font-weight:700;color:var(--vert);text-transform:uppercase;letter-spacing:.02em}
+  /* Boutons DSFR (carrés) */
+  .btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--ff);font-size:1rem;font-weight:500;line-height:1.5;padding:.6rem 1.5rem;border:1px solid var(--vert);cursor:pointer;transition:.15s}
+  .btn-primary{background:var(--vert);color:#fff}
+  .btn-primary:hover{background:var(--vert-h)}
+  .btn-secondary{background:transparent;color:var(--vert)}
+  .btn-secondary:hover{background:var(--callout)}
+  .arrow::after{content:"→";font-weight:400}
+
+  /* HEADER inspiré DSFR (sans bloc-marque RF) */
+  header{border-bottom:1px solid var(--border)}
+  .hd{display:flex;align-items:center;justify-content:space-between;min-height:76px}
+  .marque{display:flex;align-items:center;gap:14px}
+  .marque .liseret{width:6px;height:42px;background:linear-gradient(var(--vert) 0 50%,var(--gris) 50% 100%)}
+  .marque .nom{font-weight:700;color:var(--t1);font-size:1.15rem;line-height:1.1}
+  .marque .sous{font-size:.78rem;color:var(--t-mention);font-weight:400;text-transform:uppercase;letter-spacing:.03em}
+  .hd nav{display:flex;gap:1.5rem;font-size:.95rem;font-weight:500}
+  .hd nav a{color:var(--t1);padding:6px 0;border-bottom:2px solid transparent}
+  .hd nav a:hover{border-color:var(--vert)}
+  .hd .hd-cta{display:flex;gap:10px}
+  @media(max-width:880px){.hd nav{display:none}.hd .sous{display:none}}
+
+  /* HERO */
+  .hero{background:var(--alt);border-bottom:1px solid var(--border)}
+  .hero-in{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;align-items:center;padding:64px 0}
+  .hero h1{font-size:clamp(2rem,4.4vw,3rem);margin:1rem 0 1.5rem;max-width:18ch}
+  .hero p.lead{font-size:1.25rem;color:var(--t2);max-width:46ch;margin-bottom:2rem}
+  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+  .hero-photo{position:relative}
+  .hero-photo img{width:100%;max-width:320px;display:block;border:1px solid var(--border);background:#fff}
+  .hero-photo .cap{margin-top:10px;font-size:.85rem;color:var(--t-mention)}
+  @media(max-width:880px){.hero-in{grid-template-columns:1fr;gap:32px}.hero-photo{order:-1}}
+
+  /* bande normes */
+  .normes{border-bottom:1px solid var(--border);padding:18px 0;background:#fff}
+  .normes-in{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .norme{font-size:.82rem;font-weight:700;color:var(--gris-fonce);border:1px solid var(--border);padding:.35rem .8rem}
+  .normes .lbl{font-size:.82rem;color:var(--t-mention);font-weight:500;margin-right:8px}
+
+  section{padding:72px 0;border-bottom:1px solid var(--border)}
+  .sec-title{font-size:clamp(1.6rem,3.2vw,2.25rem);margin:.5rem 0 1rem}
+  .sec-intro{font-size:1.1rem;color:var(--t2);max-width:62ch}
+
+  /* TUILES DSFR */
+  .tuiles{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+  .tuile{background:#fff;border:1px solid var(--border);border-bottom:4px solid var(--vert);padding:28px 24px;display:flex;flex-direction:column;transition:.15s}
+  .tuile:hover{background:var(--alt)}
+  .tuile .norme{align-self:flex-start;margin-bottom:auto}
+  .tuile h3{font-size:1.2rem;margin:20px 0 10px}
+  .tuile p{font-size:.97rem;color:var(--t2)}
+  @media(max-width:880px){.tuiles{grid-template-columns:1fr}}
+
+  /* DIAGNOSTIC : bande Bleu France */
+  .diag{background:var(--vert);color:#fff}
+  .diag-in{display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:center;padding:56px 0}
+  .diag .overline{color:#fff;opacity:.85}
+  .diag h2{color:#fff;font-size:clamp(1.5rem,3vw,2.1rem);margin:.8rem 0 1rem;max-width:24ch}
+  .diag p{color:rgba(255,255,255,.92);max-width:54ch;margin-bottom:1.8rem}
+  .diag .btn{background:#fff;color:var(--vert);border-color:#fff}
+  .diag .btn:hover{background:var(--callout)}
+  .diag-aside{text-align:right;font-size:1.05rem;color:rgba(255,255,255,.9);border-left:1px solid rgba(255,255,255,.25);padding-left:32px}
+  .diag-aside b{display:block;font-size:2.6rem;font-weight:700;color:#fff}
+  @media(max-width:880px){.diag-in{grid-template-columns:1fr}.diag-aside{display:none}}
+
+  /* STATS */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:48px}
+  .stat{border-top:3px solid var(--vert);padding-top:20px}
+  .stat .num{font-size:2.6rem;font-weight:700;color:var(--vert);line-height:1}
+  .stat .lab{color:var(--t2);font-size:.9rem;margin-top:10px}
+  @media(max-width:880px){.stats{grid-template-columns:1fr 1fr}}
+
+  /* REFS (cartes DSFR) */
+  .refs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .ref{background:#fff;border:1px solid var(--border);padding:26px 24px}
+  .ref .tag{font-size:.78rem;font-weight:700;color:var(--vert);text-transform:uppercase;letter-spacing:.02em}
+  .ref h3{font-size:1.1rem;margin:10px 0 14px}
+  .ref ul{list-style:none}
+  .ref li{font-size:.93rem;color:var(--t2);padding-left:18px;position:relative;margin-bottom:8px}
+  .ref li::before{content:"→";position:absolute;left:0;color:var(--vert)}
+  @media(max-width:880px){.refs{grid-template-columns:1fr}}
+
+  /* PARCOURS (callout DSFR) */
+  .pc{display:flex;flex-direction:column;gap:20px;margin-top:40px}
+  .pc-item{background:var(--callout);border-left:4px solid var(--vert);padding:24px 28px}
+  .pc-item .when{font-size:.85rem;font-weight:700;color:var(--vert);text-transform:uppercase}
+  .pc-item h3{font-size:1.2rem;margin:6px 0 8px}
+  .pc-item p{color:var(--t2);font-size:.97rem;max-width:66ch}
+
+  /* CONTACT */
+  .cgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;margin-top:40px}
+  .field{margin-bottom:20px}
+  .field label{display:block;font-size:.9rem;font-weight:500;color:var(--t1);margin-bottom:6px}
+  .field input,.field textarea{width:100%;border:0;border-bottom:2px solid var(--t2);background:var(--alt);padding:.7rem .9rem;font-family:var(--ff);font-size:1rem;color:var(--t1)}
+  .field input:focus,.field textarea:focus{outline:2px solid var(--vert);outline-offset:2px}
+  .rgpd{font-size:.82rem;color:var(--t-mention);margin-top:10px}
+  .cside a.line{display:block;padding:18px 0;border-bottom:1px solid var(--border)}
+  .cside a.line:hover{color:var(--vert-h)}
+  .cside .k{font-size:.78rem;font-weight:700;color:var(--vert);text-transform:uppercase}
+  .cside .v{color:var(--t1);font-size:1.02rem;margin-top:3px}
+  @media(max-width:880px){.cgrid{grid-template-columns:1fr}}
+
+  /* FOOTER DSFR-like */
+  footer{border-top:2px solid var(--vert);background:#fff;padding:40px 0}
+  .ft-top{display:flex;gap:16px;align-items:center;margin-bottom:20px}
+  .ft-top .liseret{width:6px;height:38px;background:linear-gradient(var(--vert) 0 50%,var(--gris) 50% 100%)}
+  .ft-top .nom{font-weight:700;color:var(--t1);font-size:1.1rem}
+  .ft-links{display:flex;gap:24px;flex-wrap:wrap;font-size:.9rem;color:var(--t-mention);border-top:1px solid var(--border);padding-top:20px}
+  .ft-links a{color:var(--t2)}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:.55s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+
+<header>
+  <div class="wrap hd">
+    <div class="marque">
+      <div class="liseret"></div>
+      <div>
+        <div class="nom">Willie Leroux</div>
+        <div class="sous">Flux documentaires</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#expertises">Expertises</a>
+      <a href="#diagnostic">Diagnostic</a>
+      <a href="#resultats">Résultats</a>
+      <a href="#parcours">Parcours</a>
+    </nav>
+    <div class="hd-cta">
+      <a class="btn btn-primary" href="https://calendly.com/willie-leroux38/30min" target="_blank">Réserver un échange</a>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <span class="overline">Flux documentaires · entrants &amp; sortants</span>
+      <h1>Combien de jours entre l'arrivée d'un courrier et sa prise en compte réelle ?</h1>
+      <p class="lead">J'aide les directions d'ETI, de PME et d'organismes publics à industrialiser le traitement de leurs documents, du courrier entrant jusqu'à l'archivage à valeur probante.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary arrow" href="https://calendly.com/willie-leroux38/30min" target="_blank">Réserver 30 min</a>
+        <a class="btn btn-secondary" href="#expertises">Voir mes expertises</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="data:image/jpeg;base64,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" alt="Willie Leroux">
+      <div class="cap">Willie Leroux — Ingénieur d'affaires, Mérignac (33)</div>
+    </div>
+  </div>
+</div>
+
+<div class="normes">
+  <div class="wrap normes-in">
+    <span class="lbl">Conformité mobilisée :</span>
+    <span class="norme">NF 544</span><span class="norme">NF 461</span><span class="norme">NF K11-112</span>
+    <span class="norme">ISO 9001</span><span class="norme">ISO 27001</span><span class="norme">HDS</span><span class="norme">eIDAS</span>
+  </div>
+</div>
+
+<section id="positionnement">
+  <div class="wrap reveal">
+    <span class="overline">01 — Positionnement</span>
+    <h2 class="sec-title">Vos documents circulent encore trop lentement</h2>
+    <p class="sec-intro">J'interviens auprès des DAF, DSI, DG, DGA et Secrétaires Généraux d'organisations de 50 à 5 000 collaborateurs. Le point commun de mes interlocuteurs : un courrier entrant traité à la main, des délais qui s'allongent, des archives dont la valeur juridique n'est pas garantie. Mon rôle est de cartographier ces flux et de les remettre sous contrôle.</p>
+  </div>
+</section>
+
+<section id="expertises">
+  <div class="wrap reveal">
+    <span class="overline">02 — Périmètre</span>
+    <h2 class="sec-title">Six leviers pour reprendre la main</h2>
+    <div class="tuiles">
+      <div class="tuile"><span class="norme">BPO</span><h3>Courrier entrant externalisé</h3><p>Tri, numérisation, indexation et distribution numérique de votre courrier, de bout en bout.</p></div>
+      <div class="tuile"><span class="norme">NF 544</span><h3>Numérisation copie fidèle</h3><p>Une copie numérique juridiquement opposable, qui autorise la destruction des originaux papier.</p></div>
+      <div class="tuile"><span class="norme">NF 461</span><h3>Archivage électronique (SAE)</h3><p>Intégrité, traçabilité et force probante sur toute la durée de conservation.</p></div>
+      <div class="tuile"><span class="norme">eIDAS</span><h3>Recommandé électronique</h3><p>Envoi recommandé dématérialisé, conforme et opposable (ERE / LRE).</p></div>
+      <div class="tuile"><span class="norme">GED</span><h3>Gestion des documents vivants</h3><p>Vos documents centralisés, accessibles et partagés, au lieu d'être éparpillés.</p></div>
+      <div class="tuile"><span class="norme">KYC · 2D-Doc</span><h3>Éditique &amp; confiance</h3><p>Marketing direct, signature électronique, identification client, cachet 2D-Doc.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="diagnostic" class="diag" style="padding:0">
+  <div class="wrap diag-in">
+    <div>
+      <span class="overline">03 — Sans démonstration, sans engagement</span>
+      <h2>Un échange de 30 à 60 minutes pour cartographier vos flux</h2>
+      <p>On regarde ensemble comment vos documents entrent, circulent et sont conservés, et où se trouvent les points de friction. Vous repartez avec une vision claire de votre maturité documentaire et des premières pistes.</p>
+      <a class="btn arrow" href="https://calendly.com/willie-leroux38/30min" target="_blank">Réserver mon créneau</a>
+    </div>
+    <div class="diag-aside"><b>30′</b>échange de cadrage</div>
+  </div>
+</section>
+
+<section id="resultats">
+  <div class="wrap reveal">
+    <span class="overline">04 — Sur le terrain</span>
+    <h2 class="sec-title">Des flux traités à grande échelle</h2>
+    <p class="sec-intro" style="margin-bottom:48px">Quelques contextes représentatifs, volontairement anonymisés.</p>
+    <div class="stats">
+      <div class="stat"><div class="num" data-to="2000" data-suf="+">0</div><div class="lab">courriers/jour — établissement public financier</div></div>
+      <div class="stat"><div class="num" data-to="15" data-suf=" ans">0</div><div class="lab">de partenariat — assureur national</div></div>
+      <div class="stat"><div class="num" data-to="30000" data-suf="">0</div><div class="lab">plis postaux/an — acteur du financement</div></div>
+      <div class="stat"><div class="num" data-to="6" data-suf="">0</div><div class="lab">normes &amp; certifications mobilisées</div></div>
+    </div>
+    <div class="refs">
+      <div class="ref"><span class="tag">Banque</span><h3>Un grand groupe bancaire</h3><ul><li>~1 400 accusés de réception recommandés/jour</li><li>Flux entrants en copie fidèle NF 544</li><li>Archivage SAE certifié NF 461</li></ul></div>
+      <div class="ref"><span class="tag">Secteur public</span><h3>Un établissement public financier</h3><ul><li>+2 000 courriers/jour : recommandés, sensibles, PND, TSA</li><li>Traitement centralisé du courrier entrant</li></ul></div>
+      <div class="ref"><span class="tag">Assurance</span><h3>Un assureur national</h3><ul><li>Partenariat actif depuis 15 ans</li><li>~300 AR recommandés/jour</li><li>650 Go injectés en archivage SAE</li></ul></div>
+      <div class="ref"><span class="tag">Protection sociale</span><h3>Groupes paritaires &amp; mutuelles</h3><ul><li>Plusieurs millions de plis traités par an</li><li>Réception, tri, indexation, classification</li></ul></div>
+      <div class="ref"><span class="tag">Courtage</span><h3>Un courtier en assurances (Est)</h3><ul><li>Dématérialisation du courrier entrant de toute nature</li><li>300 messages/jour, back office libéré</li></ul></div>
+      <div class="ref"><span class="tag">Collectivités</span><h3>Secteur public local</h3><ul><li>Copie fidèle NF 544 de dossiers sensibles</li><li>Courrier entrant d'une régie des eaux</li><li>Archivage à valeur probante pour un service public</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="parcours">
+  <div class="wrap reveal">
+    <span class="overline">05 — Parcours</span>
+    <h2 class="sec-title">Du terrain à la maîtrise documentaire</h2>
+    <div class="pc">
+      <div class="pc-item"><div class="when">2025 → aujourd'hui · Mérignac</div><h3>Ingénieur d'affaires — Flux documentaires</h3><p>Accompagnement d'organisations publiques et privées sur l'ensemble de leurs flux entrants et sortants : BPO courrier, numérisation NF 544, archivage NF 461, recommandé électronique eIDAS, éditique et signature électronique.</p></div>
+      <div class="pc-item"><div class="when">2023 → 2024 · Nouméa</div><h3>Responsable de compte GED / Reprographie</h3><p>Transition numérique d'acteurs publics et privés (GED, solutions d'impression). Pilotage de la relation client en contexte de crise majeure : adaptation, conseil de proximité et relance de l'activité.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap reveal">
+    <span class="overline">06 — Contact</span>
+    <h2 class="sec-title">Parlons de vos documents</h2>
+    <div class="cgrid">
+      <div>
+        <div class="field"><label>Nom</label><input placeholder="Votre nom"></div>
+        <div class="field"><label>Organisation</label><input placeholder="Votre organisation"></div>
+        <div class="field"><label>Fonction</label><input placeholder="DAF, DSI, DG, SG…"></div>
+        <div class="field"><label>E-mail professionnel</label><input type="email" placeholder="prenom.nom@organisation.fr"></div>
+        <div class="field"><label>Message</label><textarea rows="3" placeholder="En quelques mots, votre contexte"></textarea></div>
+        <a class="btn btn-primary arrow" href="https://calendly.com/willie-leroux38/30min" target="_blank">Envoyer &amp; réserver un créneau</a>
+        <p class="rgpd">Vos données servent uniquement à vous recontacter. Elles ne sont jamais cédées à des tiers.</p>
+      </div>
+      <div class="cside">
+        <a class="line" href="https://calendly.com/willie-leroux38/30min" target="_blank"><div class="k">Rendez-vous</div><div class="v">Réserver un échange de 30 min →</div></a>
+        <a class="line" href="https://www.linkedin.com/in/willie-leroux-docone/" target="_blank"><div class="k">LinkedIn</div><div class="v">Me contacter sur LinkedIn →</div></a>
+        <a class="line" href="#"><div class="k">Zone</div><div class="v">Mérignac, Nouvelle-Aquitaine</div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ft-top">
+      <div class="liseret"></div>
+      <div class="nom">Willie Leroux</div>
+    </div>
+    <p style="color:var(--t-mention);max-width:60ch;font-size:.92rem">Industrialisation et mise en conformité des flux documentaires entrants et sortants pour les ETI, PME et organismes publics.</p>
+    <div class="ft-links">
+      <a href="#expertises">Expertises</a>
+      <a href="#diagnostic">Diagnostic</a>
+      <a href="https://www.linkedin.com/in/willie-leroux-docone/" target="_blank">LinkedIn</a>
+      <span>© 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  const fmt=n=>n.toLocaleString('fr-FR');
+  const anim=el=>{const to=+el.dataset.to,suf=el.dataset.suf||'',d=1300,t0=performance.now();const s=t=>{const p=Math.min((t-t0)/d,1);el.textContent=fmt(Math.floor((1-Math.pow(1-p,3))*to))+suf;if(p<1)requestAnimationFrame(s)};requestAnimationFrame(s)};
+  const sio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){anim(e.target);sio.unobserve(e.target)}}),{threshold:.6});
+  document.querySelectorAll('[data-to]').forEach(el=>sio.observe(el));
+</script>

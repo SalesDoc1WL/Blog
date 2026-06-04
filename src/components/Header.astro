@@ -1,0 +1,33 @@
+---
+import { url, CALENDLY } from '../lib/url.js';
+const path = Astro.url.pathname.replace(/\/$/, '');
+const nav = [
+  { href: '/expertises', label: 'Expertises' },
+  { href: '/secteurs', label: 'Secteurs' },
+  { href: '/cas', label: 'Cas' },
+  { href: '/veille', label: 'Veille' },
+];
+const isCurrent = (href) => path.includes(href);
+---
+<header class="site">
+  <div class="wrap hd">
+    <a class="marque" href={url('/')} aria-label="Accueil — Willie Leroux">
+      <span class="liseret" aria-hidden="true"></span>
+      <span>
+        <span class="nom">Willie Leroux</span><br />
+        <span class="sous">Flux documentaires</span>
+      </span>
+    </a>
+
+    <nav id="primary-nav" aria-label="Navigation principale">
+      {nav.map((n) => (
+        <a href={url(n.href)} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>
+      ))}
+    </nav>
+
+    <div class="hd-cta">
+      <a class="btn btn-primary" href={CALENDLY} target="_blank" rel="noopener">Réserver un échange</a>
+      <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="primary-nav">☰</button>
+    </div>
+  </div>
+</header>
