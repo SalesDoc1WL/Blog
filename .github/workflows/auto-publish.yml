@@ -2,7 +2,7 @@ name: Publication automatique d'articles
 
 # Lance chaque jour 9h UTC.
 # Si une pubDate du calendrier = aujourd'hui et l'article existe en draft,
-# retire le flag draft + pousse directement vers main.
+# retire le flag draft + pousse vers main.
 on:
   schedule:
     - cron: '0 9 * * *'  # 9h UTC = 10h/11h FR (selon heure d'été)
@@ -20,19 +20,25 @@ jobs:
         with:
           node-version: 20
 
-      - name: Chercher & publier article du jour
+      - name: Chercher article du jour
         run: node scripts/auto-publish.mjs
 
-      - name: Push vers main si changement
+      - name: Créer PR si changement
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if git diff --exit-code --quiet src/content/veille/; then
             echo "Aucun article à publier aujourd'hui."
           else
             DATE=$(date +%Y-%m-%d)
+            BRANCH="auto-publish/$DATE"
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git checkout -b "$BRANCH"
             git add src/content/veille/*.md
-            git commit -m "auto: publication article du $DATE (retire draft: true)"
-            git push
-            echo "✅ Article publié en direct vers main."
+            git commit -m "auto: article du $DATE prêt pour publication"
+            git push -u origin "$BRANCH"
+            gh pr create --base main --head "$BRANCH" \
+              --title "Auto-publish: article du $DATE" \
+              --body "Article du calendrier éditorial, prêt pour publication. Vérifié par CI. À merger après revue."
           fi
