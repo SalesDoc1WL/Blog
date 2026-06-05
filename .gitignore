@@ -27,3 +27,9 @@ Thumbs.db
 .agents/
 skills-lock.json
 .playwright-mcp/
+
+# dossiers de travail / livrables d'audit (ne pas publier)
+AUDITS_ET_SEO/
+Nouveau dossier/
+.tmp_ds/
+*.zip
