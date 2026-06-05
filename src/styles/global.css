@@ -33,6 +33,20 @@ a:focus-visible, button:focus-visible, .btn:focus-visible,
 .muted { color: var(--t-mention); }
 .arrow::after { content: "→"; font-weight: 400; margin-left: .35em; }
 
+/* Direction artistique « duotone » — photographie documentaire unifiée
+   en monochrome vert (encre → menthe). Le portrait reste naturel. */
+.duo-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.cas__media img,
+.band__img,
+.vfeat__thumb img,
+.ilead img {
+  filter: url(#duo) contrast(1.04);
+  transition: filter var(--dur) var(--ease), transform .5s var(--ease);
+}
+/* au survol des cartes, la photo reprend ses couleurs (révélation) */
+.cas:hover .cas__media img,
+.vfeat:hover .vfeat__thumb img { filter: none; }
+
 /* Compléments à la prose intérieure (interior.css) : h3, listes ordonnées,
    code, images, séparateurs — non couverts par la maquette d'origine. */
 .prose h3 { font-size: 1.2rem; font-weight: 700; color: var(--t1); margin-top: 1.8em; letter-spacing: -.01em; }

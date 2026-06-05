@@ -50,6 +50,17 @@ const jsonldList = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
   ))}
 </head>
 <body class="theme-light">
+  <!-- Filtre duotone (encre → menthe) pour la photographie documentaire -->
+  <svg class="duo-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="duo" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0" />
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.055 0.933" />
+        <feFuncG type="table" tableValues="0.137 0.961" />
+        <feFuncB type="table" tableValues="0.106 0.945" />
+      </feComponentTransfer>
+    </filter>
+  </svg>
   <a class="skip" href="#main">Aller au contenu</a>
   {readingBar && <div class="rprog"></div>}
   <Header />
