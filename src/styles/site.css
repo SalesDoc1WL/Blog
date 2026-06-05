@@ -152,6 +152,15 @@ em { font-style: normal; }
 .hero--portrait .hero__pill b { font-size: .95rem; color: var(--t1); }
 .hero--portrait .hero__pill span { font-size: .76rem; color: var(--vert); font-weight: 600; }
 .hero--portrait .hero__figures { grid-column: 1 / -1; }
+/* effet : flottement doux + inclinaison 3D au curseur (sobre) */
+.hero--portrait .hero__media { perspective: 1000px; }
+.hero--portrait .hero__ph { transition: transform .35s var(--ease); will-change: transform; }
+.hero--portrait .hero__ring { transition: transform .9s var(--ease); }
+@media (prefers-reduced-motion: no-preference) {
+  .hero--portrait .hero__media { animation: heroFloat 6.5s var(--ease) infinite; }
+  .hero--portrait.is-tilting .hero__media { animation-play-state: paused; }
+}
+@keyframes heroFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 @media (max-width: 920px) {
   .hero--portrait .hero__in { grid-template-columns: 1fr; }
   .hero--portrait .hero__media { justify-self: center; max-width: 280px; margin-top: 6px; }

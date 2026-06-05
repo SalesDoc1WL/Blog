@@ -100,4 +100,29 @@
       requestAnimationFrame(loop);
     })();
   });
+
+  /* ---------- effet portrait : inclinaison 3D au curseur ---------- */
+  (function () {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var hero = document.querySelector('.hero--portrait');
+    var media = hero && hero.querySelector('.hero__media');
+    var ph = media && media.querySelector('.hero__ph');
+    var ring = media && media.querySelector('.hero__ring');
+    if (!ph) return;
+    var MAX = 9;
+    media.addEventListener('pointermove', function (e) {
+      var r = media.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      hero.classList.add('is-tilting');
+      ph.style.transform = 'rotateY(' + (x * MAX).toFixed(2) + 'deg) rotateX(' + (-y * MAX).toFixed(2) + 'deg)';
+      if (ring) ring.style.transform = 'translate(' + (x * -10).toFixed(1) + 'px,' + (y * -10).toFixed(1) + 'px)';
+    });
+    media.addEventListener('pointerleave', function () {
+      hero.classList.remove('is-tilting');
+      ph.style.transform = '';
+      if (ring) ring.style.transform = '';
+    });
+  })();
 })();
