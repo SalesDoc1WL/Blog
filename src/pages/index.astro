@@ -354,6 +354,7 @@ const jsonld = {
   <section class="res" id="resultats">
     <div class="wrap">
       <div class="eyebrow"><span class="no">03</span> Des volumes critiques, déjà sous contrôle</div>
+      <h2>Cas de succès et résultats documentaires en production</h2>
       <div class="res__stats">
         {stats.map((s) => (
           <div class="stat">
@@ -365,7 +366,7 @@ const jsonld = {
       <div class="res__cas">
         {cas.map((r) => (
           <div class="cas">
-            <div class="cas__media"><img src={url(`/img/home/${r.img}`)} alt="" loading="lazy" /></div>
+            <div class="cas__media"><img src={url(`/img/home/${r.img}`)} alt={`${r.titre} — ${r.li[0]}`} loading="lazy" /></div>
             <div class="cas__body">
               <span class="cas__sec">{r.sec}</span>
               <b class="cas__t">{r.titre}</b>

@@ -4,7 +4,7 @@ description: "On numérise mais on garde le papier « au cas où ». La procédu
 categorie: Réglementation
 tags: [NF 544, destruction, originaux, copie fidèle]
 pubDate: 2026-06-18
-draft: true
+draft: false
 ---
 
 La plupart des organisations qui numérisent finissent par avoir deux versions du document : le papier original et sa copie numérique. La question qui revient tout le temps : « Quand peut-on jeter le papier ? »
