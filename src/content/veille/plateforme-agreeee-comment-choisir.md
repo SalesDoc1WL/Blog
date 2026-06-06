@@ -4,6 +4,7 @@ description: "806k inscrits, +20k par semaine. Guide de sélection pour identifi
 categorie: "Réglementation"
 tags: ["Plateforme Agréée", "PDP", "facturation électronique", "sélection prestataire"]
 pubDate: 2026-06-27
+cover: /img/veille/plateforme-agreeee-comment-choisir.svg
 draft: true
 ---
 

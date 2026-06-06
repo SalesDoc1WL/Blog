@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#grad2)"/>
+
+  <!-- Checkbox 1 -->
+  <rect x="250" y="200" width="250" height="100" fill="white" rx="8" opacity="0.9"/>
+  <rect x="270" y="220" width="30" height="30" fill="#06b6d4" rx="4"/>
+  <path d="M 275 232 L 283 240 L 295 228" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="320" y="245" font-size="18" fill="#333">Couverture scope</text>
+
+  <!-- Checkbox 2 -->
+  <rect x="700" y="200" width="250" height="100" fill="white" rx="8" opacity="0.9"/>
+  <rect x="720" y="220" width="30" height="30" fill="#06b6d4" rx="4"/>
+  <path d="M 725 232 L 733 240 L 745 228" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="770" y="245" font-size="18" fill="#333">Volume clair</text>
+
+  <!-- Checkbox 3 -->
+  <rect x="250" y="380" width="250" height="100" fill="white" rx="8" opacity="0.9"/>
+  <rect x="270" y="400" width="30" height="30" fill="#06b6d4" rx="4"/>
+  <path d="M 275 412 L 283 420 L 295 408" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="320" y="425" font-size="18" fill="#333">Clients accepte</text>
+
+  <!-- Checkbox 4 -->
+  <rect x="700" y="380" width="250" height="100" fill="white" rx="8" opacity="0.9"/>
+  <rect x="720" y="400" width="30" height="30" fill="#06b6d4" rx="4"/>
+  <path d="M 725 412 L 733 420 L 745 408" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="770" y="425" font-size="18" fill="#333">Export format</text>
+</svg>

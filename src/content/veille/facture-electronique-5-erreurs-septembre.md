@@ -4,6 +4,7 @@ description: "Septembre : obligation active, premiers contrôles DGFIP. Erreurs 
 categorie: "Réglementation"
 tags: ["facturation électronique", "septembre 2026", "erreurs communes", "EDI", "conformité"]
 pubDate: 2026-09-05
+cover: /img/veille/facture-electronique-5-erreurs-septembre.svg
 draft: true
 ---
 

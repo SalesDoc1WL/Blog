@@ -4,6 +4,7 @@ description: "J-10 : dernière ligne droite avant obligation. 5 points à vérif
 categorie: "Archivage & SAE"
 tags: ["facturation", "septembre 2026", "EDI", "archivage", "checklist"]
 pubDate: 2026-08-22
+cover: /img/veille/facture-electronique-checklist-aout.svg
 draft: true
 ---
 

@@ -4,6 +4,7 @@ description: "CNIL a finalisé recommandations IA en juin. GED + modèles de lan
 categorie: "Réglementation"
 tags: ["IA", "RGPD", "GED", "CNIL", "traitement données"]
 pubDate: 2026-07-25
+cover: /img/veille/ia-ged-reflexes-rgpd.svg
 draft: true
 ---
 

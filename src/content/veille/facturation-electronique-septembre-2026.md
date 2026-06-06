@@ -4,6 +4,7 @@ description: "Facturation électronique obligatoire pour 1,3M d'entités en 3 mo
 categorie: "Réglementation"
 tags: ["facturation", "Décret 2023-816", "EDI", "FAC1.2", "conformité"]
 pubDate: 2026-06-13
+cover: /img/veille/facturation-electronique-septembre-2026.svg
 draft: true
 ---
 

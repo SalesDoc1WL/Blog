@@ -4,6 +4,7 @@ description: "France 2e pays le plus touché en T1 2026 (+108%). L'archivage sé
 categorie: "Archivage & SAE"
 tags: ["cybersécurité", "archivage", "SAE", "RGPD", "conservation"]
 pubDate: 2026-07-11
+cover: /img/veille/fuites-donnees-archivage-valeur-probante.svg
 draft: true
 ---
 
