@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../lib/url.js';
+
+const norms = [
+  { code: 'NF 544', title: 'Numérisation copie fidèle', description: 'Copie numérique juridiquement opposable qui autorise la destruction des originaux papier.' },
+  { code: 'NF 461', title: 'Archivage électronique (SAE)', description: 'Intégrité, traçabilité et force probante sur toute la durée de conservation des documents.' },
+  { code: 'NF K11-112', title: 'Document numérique signé', description: 'Garantit la fiabilité et la pérennité des documents numériques signés électroniquement.' },
+  { code: 'ISO 9001', title: 'Management de la qualité', description: 'Système de management de la qualité reconnu internationalement.' },
+  { code: 'ISO 27001', title: 'Sécurité de l\'information', description: 'Gestion de la sécurité de l\'information et protection des données.' },
+  { code: 'HDS', title: 'Hébergement de données de santé', description: 'Agrément pour héberger des données de santé en conformité avec les réglementations.' },
+  { code: 'eIDAS', title: 'Recommandé électronique', description: 'Envoi recommandé dématérialisé, conforme et opposable (ERE / LRE).' },
+  { code: 'RGPD', title: 'Régulation des données personnelles', description: 'Conformité au Règlement Général sur la Protection des Données.' },
+];
+---
+
+<BaseLayout title="Normes & conformité" description="Descriptions des normes et certifications mobilisées">
+  <article>
+    <section class="ihero">
+      <div class="wrap ihero__in">
+        <h1>Normes & Conformité</h1>
+        <p class="ihero__lead">Détail des 8 normes et certifications qui garantissent la fiabilité, la sécurité et la légalité du traitement de vos documents.</p>
+      </div>
+    </section>
+
+    <section class="ibody">
+      <div class="wrap">
+        <div style="max-width:730px;margin:0 auto;">
+          {norms.map((norm) => (
+            <div id={norm.code.toLowerCase().replace(/[^a-z0-9]/g, '')} style="margin-bottom:3em;padding-bottom:2em;border-bottom:1px solid var(--border);">
+              <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:10px;">
+                <code style="background:var(--accent-light);color:var(--accent);padding:4px 8px;border-radius:3px;font-weight:700;font-size:.85rem;">{norm.code}</code>
+                <h2 style="margin:0;font-size:1.5rem;color:var(--t1);">{norm.title}</h2>
+              </div>
+              <p style="margin:0;color:var(--t2);line-height:1.6;font-size:1.05rem;">{norm.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

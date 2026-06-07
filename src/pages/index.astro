@@ -340,7 +340,10 @@ const jsonld = {
       <h2>Chaque étape s'appuie sur une norme opposable</h2>
       <p style="max-width:60ch;margin-top:12px;">La valeur juridique de vos documents ne se décrète pas : elle repose sur des référentiels précis. Voici le cadre sur lequel je m'appuie pour sécuriser la numérisation, l'archivage, la signature et le recommandé électronique.</p>
       <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;">
-        {normes.map((n) => <span class="chip">{n}</span>)}
+        {normes.map((n) => {
+          const anchor = n.toLowerCase().replace(/[^a-z0-9]/g, '');
+          return <a href={url(`/normes#${anchor}`)} style="text-decoration:none;"><span class="chip">{n}</span></a>;
+        })}
       </div>
       <div class="sec-head-cta" style="margin-top:36px;"><a class="btn btn--secondary" href={CALENDLY} target="_blank" rel="noopener">Réserver mon diagnostic <span class="arr">→</span></a></div>
     </div>

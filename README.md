@@ -59,25 +59,7 @@ draft: false                     # true = non publié
 Le corps de l'article en Markdown…
 ```
 
-### Un cas
-Créer `src/content/cas/mon-cas.md` :
-
-```markdown
----
-titre: "Titre du cas"
-client: "Secteur — descriptif anonymisé"
-secteur: banque                  # une valeur de SECTEUR_SLUGS
-expertises: [recommande-electronique-eidas, archivage-electronique-nf461]
-chiffres:
-  - { valeur: "1 400", label: "AR / jour" }
-resume: Phrase de résumé.
-ordre: 7
----
-
-Contexte, intervention, résultat…
-```
-
-Le **maillage** (cas ↔ expertise ↔ secteur ↔ veille) se met à jour automatiquement au build à partir des `secteur`/`expertises`/`tags`.
+Le **maillage** (expertise ↔ secteur ↔ veille) se met à jour automatiquement au build à partir des `secteur`/`expertises`/`tags`.
 
 ### Une expertise / un secteur
 Mêmes principes — voir les fichiers existants dans `src/content/expertises` et `src/content/secteurs`. Un nouveau slug doit être ajouté à `EXPERTISE_SLUGS` / `SECTEUR_SLUGS` dans `src/content/config.ts`.

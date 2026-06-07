@@ -61,10 +61,10 @@
   - Avant: `alt=""`
   - Après: `alt="${r.titre} — ${r.li[0]}"` 
   - Exemples:
-    - "Grand groupe bancaire — ~1 400 AR recommandés/jour"
-    - "Établissement public financier — +2 000 courriers/jour"
-    - "Assureur national — Partenariat 15 ans"
-  - **SEO value:** Inclut mots-clés métier + volumes (CTR signals)
+    - "Numérisation en copie fidèle NF 544"
+    - "Archivage à valeur probante NF 461"
+    - "Recommandé électronique eIDAS"
+  - **SEO value:** Inclut mots-clés métier (CTR signals)
 - **File names:** `art-nf461.jpg`, `art-collectivite.jpg`, `art-bpo.jpg` — descriptifs ✅
 - **Format:** JPG (optimisé pour web)
 - **Lazy loading:** ✅ `loading="lazy"` sur images cas
@@ -114,7 +114,7 @@ All dimensions pass. Alt texts newly improved to include title + first metric.
 
 2. **Dynamic alt texts on case images**
    - Before: empty (`alt=""`)
-   - After: `"Titre — Premier metric"` (e.g., "Grand groupe bancaire — ~1 400 AR recommandés/jour")
+   - After: `"Titre — Premier metric"` (e.g., "Numérisation NF 544 — copie fidèle opposable")
    - **Impact:** 
      - Improves image discoverability in Google Images
      - Enhances accessibility (screen readers)

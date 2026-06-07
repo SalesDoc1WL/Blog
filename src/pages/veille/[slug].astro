@@ -81,6 +81,14 @@ const jsonld = [
             {d.tags.map((t) => <span class="chip">{t}</span>)}
           </div>
         )}
+        <div class="share-section" style="max-width:730px;margin:3em auto 0;padding-top:2em;border-top:1px solid var(--border);">
+          <span class="k" style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t-mention);">Partager</span>
+          <div style="display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;">
+            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`} target="_blank" rel="noopener noreferrer" class="btn btn--secondary" style="font-size:.95rem;">LinkedIn</a>
+            <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(Astro.url.href)}&text=${encodeURIComponent(d.titre)}`} target="_blank" rel="noopener noreferrer" class="btn btn--secondary" style="font-size:.95rem;">𝕏</a>
+            <a href={`mailto:?subject=${encodeURIComponent(d.titre)}&body=${encodeURIComponent(d.description + '\n\n' + Astro.url.href)}`} class="btn btn--secondary" style="font-size:.95rem;">Email</a>
+          </div>
+        </div>
       </div>
     </section>
   </article>

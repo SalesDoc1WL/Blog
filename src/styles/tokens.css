@@ -1,93 +1,55 @@
 /* =====================================================================
-   Willie Leroux — DocOne Design System
-   colors_and_type.css
-
-   Foundation tokens for the Willie Leroux / DocOne flux-documentaires
-   brand. Charte DocOne, built on the codes of the French State Design
-   System (DSFR) — green accent + Marianne type — WITHOUT the official
-   "Marianne / Liberté Égalité Fraternité" state block-mark.
-
-   Source of truth: SalesDoc1WL/site-willie  (src/styles/tokens.css +
-   src/styles/global.css). WCAG-corrected greens preserved from the repo.
+   Willie Leroux — Modern Design System (Piste 3)
+   Typographie moderne + Palette vibrante (teal + coral)
    ===================================================================== */
 
-/* ---------------------------------------------------------------------
-   FONT — Marianne (DSFR CDN). The repo references these woff2 files
-   directly from the gouvfr DSFR package; we keep the same CDN so the
-   weights match the production site exactly. If you need offline fonts,
-   drop the woff2 files into fonts/ and repoint these src URLs.
-   --------------------------------------------------------------------- */
+/* Inter via CDN — modern, warm, friendly */
 @font-face {
-  font-family: 'Marianne';
-  src: url('https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Regular.woff2') format('woff2');
+  font-family: 'Inter';
+  src: url('https://rsms.me/inter/inter.css');
   font-weight: 400; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: 'Marianne';
-  src: url('https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Medium.woff2') format('woff2');
-  font-weight: 500; font-style: normal; font-display: swap;
-}
-@font-face {
-  font-family: 'Marianne';
-  src: url('https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Bold.woff2') format('woff2');
-  font-weight: 700; font-style: normal; font-display: swap;
 }
 
 :root {
   /* ===================================================================
-     COLOR — RAW PALETTE
-     Names kept from the repo (French) with English aliases for clarity.
-     =================================================================== */
+     COLOR — MODERN PALETTE (Teal + Coral)
+     ===================================================================
 
-  /* Brand green (DocOne). --vert is WCAG-AA corrected (5.70:1 on white,
-     was #00906C at 4.03:1). Keep --vert for text/UI; --vert-brand is the
-     original lighter brand green, fine for large fills / decoration. */
-  --vert:        #007558;   /* primary green — text + UI safe        */
-  --vert-h:      #00543f;   /* hover / pressed — darker green         */
-  --vert-a:      #00543f;   /* active surface (diagnostic band)       */
-  --vert-brand:  #00906C;   /* original DocOne green (large fills)    */
-  --vert-elec:   #00C896;   /* electric green — accents on dark only  */
+  /* Primary accent: Teal — modern, tech-forward, trustworthy */
+  --accent:      #0891B2;   /* primary action, text links, accents   */
+  --accent-hover: #0E7490;   /* hover / pressed state                  */
+  --accent-light: #E0F2FE;   /* light tint for callouts / surfaces    */
 
-  /* Neutrals / ink */
-  --t1:          #161616;   /* primary text (near-black)              */
-  --t2:          #3a3a3a;   /* body text                              */
-  --t-mention:   #666666;   /* captions, meta, legal                  */
-  --gris:        #707070;   /* mid grey (liseret lower half)          */
-  --gris-fonce:  #4a4a4a;   /* dark grey (norme chips)                */
+  /* Secondary accent: Coral — energy, warmth, CTA emphasis */
+  --accent-warm:  #EA580C;   /* energy color for highlights           */
+  --accent-warm-hover: #C2410C;
 
-  /* Surfaces */
-  --bg:          #ffffff;   /* page background                        */
-  --alt:         #f5f7f6;   /* alternating section / input fill       */
-  --contrast:    #eceeed;   /* contrast block                         */
-  --callout:     #edf6f2;   /* green-tinted callout / pressed secondary */
+  /* Neutrals — clean, modern */
+  --t1:          #0F172A;   /* primary text (near-black)              */
+  --t2:          #475569;   /* body text (slate grey)                 */
+  --t-mention:   #94A3B8;   /* captions, meta                         */
 
-  /* Lines */
-  --border:      #dddddd;   /* hairline borders                       */
-  --border-vert: #bfe0d5;   /* green-tinted border (maillage chips)   */
+  /* Surfaces — minimal, spacious */
+  --bg:          #FFFFFF;   /* page background                        */
+  --bg-alt:      #F8FAFC;   /* subtle alternating surface             */
+  --border:      #E2E8F0;   /* hairline borders (slate-200)           */
 
-  /* ---- English semantic aliases (same values) ---- */
+  /* ---- English semantic aliases ---- */
   --fg1: var(--t1);
   --fg2: var(--t2);
   --fg-muted: var(--t-mention);
-  --accent: var(--vert);
-  --accent-hover: var(--vert-h);
-  --accent-electric: var(--vert-elec);
   --surface: var(--bg);
-  --surface-alt: var(--alt);
-  --surface-callout: var(--callout);
+  --surface-alt: var(--bg-alt);
   --line: var(--border);
-  --line-accent: var(--border-vert);
   --ink-inverse: #ffffff;
 
   /* ===================================================================
      TYPOGRAPHY — FAMILIES
-     One family does everything: Marianne (DSFR). Arial as metric-near
-     fallback. No serif, no separate display face — the brand is a single
-     sans, weight + size carry hierarchy.
+     Inter for warmth + clarity. System fonts as fallback.
      =================================================================== */
-  --ff:         'Marianne', Arial, Helvetica, sans-serif;
+  --ff:         'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --ff-sans:    var(--ff);
-  --ff-mono:    ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --ff-mono:    'Monaco', 'Courier New', monospace;
 
   --fw-regular: 400;
   --fw-medium:  500;   /* buttons, nav, labels                       */
@@ -148,11 +110,12 @@
   --shadow-none: none;
   --shadow-hover: 0 6px 18px rgba(8, 20, 16, 0.08);
 
-  /* Motion — gentle, fast, no bounce */
-  --ease: cubic-bezier(0.2, 0, 0, 1);
-  --dur-fast: 0.15s;
-  --dur:      0.25s;
-  --dur-reveal: 0.55s;
+  /* Motion — smooth, modern, responsive */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);        /* snappy spring */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);      /* ease-out for entrances */
+  --dur-fast: 0.12s;
+  --dur:      0.2s;
+  --dur-reveal: 0.45s;
 }
 
 /* =====================================================================
@@ -195,24 +158,24 @@
 .ds-small    { font-size: var(--fs-sm); color: var(--t2); }
 .ds-caption  { font-size: var(--fs-xs); color: var(--t-mention); }
 
-/* Overline / eyebrow — green, uppercase, bold */
+/* Overline / eyebrow — teal, uppercase, bold */
 .ds-overline, .overline {
   font-size: var(--fs-overline); font-weight: var(--fw-bold);
-  color: var(--vert); text-transform: uppercase;
+  color: var(--accent); text-transform: uppercase;
   letter-spacing: var(--ls-overline);
 }
 
-/* Norme chip — squared bordered acronym badge (NF 544, eIDAS…) */
+/* Norme chip — modern badge with subtle border */
 .ds-norme {
   font-size: var(--fs-xs); font-weight: var(--fw-bold);
-  color: var(--gris-fonce); border: var(--bw-hair) solid var(--border);
+  color: var(--t2); border: var(--bw-hair) solid var(--border);
   padding: 0.35rem 0.8rem; letter-spacing: var(--ls-norme);
-  text-transform: uppercase; display: inline-block; background: #fff;
+  text-transform: uppercase; display: inline-block; background: var(--bg-alt);
 }
 
 /* Links + inline code */
-.ds-scope a { color: var(--vert); text-decoration: none; }
-.ds-scope a:hover { color: var(--vert-h); }
+.ds-scope a { color: var(--accent); text-decoration: none; transition: color var(--dur) var(--ease-out); }
+.ds-scope a:hover { color: var(--accent-hover); }
 .ds-code, .ds-scope code {
   font-family: var(--ff-mono); background: var(--alt);
   padding: 0.1rem 0.35rem; font-size: 0.9em; color: var(--t1);

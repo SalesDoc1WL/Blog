@@ -9,7 +9,7 @@
   --j-ink: #fff;
   --j-soft: rgba(232,239,235,.78);
   --j-faint: rgba(232,239,235,.5);
-  --j-accent: var(--vert-elec);
+  --j-accent: var(--accent-warm);
   --j-glow: rgba(0,200,150,.16);
   --j-ghost: rgba(255,255,255,.035);
   --j-track: rgba(255,255,255,.14);
@@ -19,7 +19,7 @@
   --j-dotglow: 0 0 10px rgba(0,200,150,.7);
   --j-chip-bg: transparent;
   --j-chip-border: rgba(255,255,255,.24);
-  --j-chip-ink: var(--vert-elec);
+  --j-chip-ink: var(--accent-warm);
   --j-sheet: #f4f7f5;
   --j-sheet-bar: #d4ddd8;
   --j-sheet-shadow: 0 30px 70px rgba(0,0,0,.5);
@@ -30,7 +30,7 @@
   --j-ink: var(--t1);
   --j-soft: var(--t2);
   --j-faint: var(--t-mention);
-  --j-accent: var(--vert);
+  --j-accent: var(--accent);
   --j-glow: rgba(0,144,108,.10);
   --j-ghost: rgba(22,22,22,.045);
   --j-track: var(--border);
@@ -114,7 +114,7 @@
 .journey--light .sheet { border: 1px solid var(--border); }
 .sheet__bar { height: 9px; background: var(--j-sheet-bar); }
 .sheet__bar.s { width: 58%; }
-.sheet__bar.g { background: var(--vert); width: 42%; }
+.sheet__bar.g { background: var(--accent); width: 42%; }
 .sheet__sp { flex: 1; }
 
 .layer { position: absolute; inset: 0; opacity: 0; transition: opacity .6s var(--ease); pointer-events: none; }
@@ -124,13 +124,13 @@
 .journey__sticky[data-stage="3"] .layer--s3 { opacity: 1; }
 
 /* seal générique (réutilisé par plusieurs scènes) */
-.dseal { position: absolute; left: 50%; bottom: 7%; transform: translateX(-50%); border: 2px solid var(--vert); color: var(--vert); font-weight: 700; font-size: .68rem; letter-spacing: .12em; padding: .3rem .6rem; background: rgba(255,255,255,.9); white-space: nowrap; }
+.dseal { position: absolute; left: 50%; bottom: 7%; transform: translateX(-50%); border: 2px solid var(--accent); color: var(--accent); font-weight: 700; font-size: .68rem; letter-spacing: .12em; padding: .3rem .6rem; background: rgba(255,255,255,.9); white-space: nowrap; }
 .journey .dseal { color: var(--j-accent); border-color: var(--j-accent); }
-.journey--light .dseal { color: var(--vert); border-color: var(--vert); background: #fff; }
+.journey--light .dseal { color: var(--accent); border-color: var(--accent); background: #fff; }
 
 /* ====================== SCÈNES ENTRANT (sombre) ====================== */
 .layer--mail .flap { position: absolute; left: -10%; right: -10%; top: -8%; height: 44%; background: #e2e9e5; clip-path: polygon(0 0, 100% 0, 50% 100%); box-shadow: 0 10px 24px rgba(0,0,0,.3); }
-.layer--mail .stamp { position: absolute; right: 8%; top: 9%; width: 40px; height: 30px; background: var(--vert); }
+.layer--mail .stamp { position: absolute; right: 8%; top: 9%; width: 40px; height: 30px; background: var(--accent); }
 
 .layer--scan .grid { position: absolute; inset: 0; opacity: .4; background-image: linear-gradient(rgba(0,117,88,.25) 1px, transparent 1px), linear-gradient(90deg, rgba(0,117,88,.25) 1px, transparent 1px); background-size: 18px 18px; }
 .layer--scan .beam { position: absolute; left: 0; right: 0; height: 26%; background: linear-gradient(180deg, transparent, rgba(0,200,150,.55), transparent); box-shadow: 0 0 30px rgba(0,200,150,.7); animation: beam 2.4s var(--ease) infinite; }
@@ -140,44 +140,44 @@
 .layer--share .ghost { position: absolute; inset: 0; background: #e9efeb; box-shadow: 0 24px 50px rgba(0,0,0,.4); }
 .layer--share .g1 { transform: translate(16px, 16px) rotate(5deg); opacity: .55; }
 .layer--share .g2 { transform: translate(30px, 30px) rotate(9deg); opacity: .3; }
-.layer--share .node { position: absolute; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,200,150,.16); border: 1.5px solid var(--vert-elec); display: grid; place-items: center; color: var(--vert-elec); font-size: .8rem; }
+.layer--share .node { position: absolute; width: 30px; height: 30px; border-radius: 50%; background: rgba(0,200,150,.16); border: 1.5px solid var(--accent-warm); display: grid; place-items: center; color: var(--accent-warm); font-size: .8rem; }
 .layer--share .n1 { top: -6%; right: -14%; } .layer--share .n2 { bottom: 4%; right: -16%; } .layer--share .n3 { bottom: 24%; left: -16%; }
 
 .layer--archive .vault { position: absolute; inset: -6%; border: 2px solid rgba(0,200,150,.35); }
-.layer--archive .shield { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 90px; height: 104px; background: rgba(6,16,12,.9); border: 2px solid var(--vert-elec); clip-path: polygon(50% 0, 100% 16%, 100% 60%, 50% 100%, 0 60%, 0 16%); display: grid; place-items: center; box-shadow: 0 0 36px rgba(0,200,150,.4); }
-.layer--archive .shield::after { content: ""; width: 26px; height: 22px; border: 3px solid var(--vert-elec); border-bottom: 0; border-radius: 14px 14px 0 0; box-shadow: 0 26px 0 -8px var(--vert-elec); }
+.layer--archive .shield { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 90px; height: 104px; background: rgba(6,16,12,.9); border: 2px solid var(--accent-warm); clip-path: polygon(50% 0, 100% 16%, 100% 60%, 50% 100%, 0 60%, 0 16%); display: grid; place-items: center; box-shadow: 0 0 36px rgba(0,200,150,.4); }
+.layer--archive .shield::after { content: ""; width: 26px; height: 22px; border: 3px solid var(--accent-warm); border-bottom: 0; border-radius: 14px 14px 0 0; box-shadow: 0 26px 0 -8px var(--accent-warm); }
 
 /* ====================== SCÈNES SORTANT (clair) ====================== */
 /* s0 — Éditique / composition : champs personnalisés + caret */
-.layer--compose .ln { position: absolute; left: 22px; height: 9px; background: var(--vert); opacity: .85; }
+.layer--compose .ln { position: absolute; left: 22px; height: 9px; background: var(--accent); opacity: .85; }
 .layer--compose .l1 { top: 22px; width: 38%; }
 .layer--compose .l2 { top: 53px; width: 52%; }
-.layer--compose .caret { position: absolute; left: calc(22px + 52%); top: 51px; width: 2px; height: 13px; background: var(--vert); animation: caret 1.05s steps(1) infinite; }
+.layer--compose .caret { position: absolute; left: calc(22px + 52%); top: 51px; width: 2px; height: 13px; background: var(--accent); animation: caret 1.05s steps(1) infinite; }
 @keyframes caret { 50% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .layer--compose .caret { animation: none; } }
 
 /* s1 — Cachet 2D-Doc : datamatrix */
 .layer--seal2d .dm { position: absolute; right: 12%; bottom: 13%; width: 56px; height: 56px; background-color: #fff; border: 2px solid var(--t1);
   background-image: repeating-conic-gradient(var(--t1) 0% 25%, #fff 0% 50%); background-size: 9.3px 9.3px; box-shadow: 0 6px 16px rgba(8,20,16,.18); }
-.layer--seal2d .dm::after { content: ""; position: absolute; inset: 0; border: 2px solid var(--vert); animation: dmpulse 2s var(--ease) infinite; }
+.layer--seal2d .dm::after { content: ""; position: absolute; inset: 0; border: 2px solid var(--accent); animation: dmpulse 2s var(--ease) infinite; }
 @keyframes dmpulse { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .layer--seal2d .dm::after { animation: none; opacity: .9; } }
 
 /* s2 — Signature électronique : ligne + coche */
 .layer--sign .sigline { position: absolute; left: 18%; right: 18%; bottom: 32%; height: 2px; background: var(--border); }
 .layer--sign .sig { position: absolute; left: 20%; bottom: 30%; width: 84px; height: 26px; border-bottom: 2px solid transparent;
-  background: linear-gradient(120deg, transparent 0 8%, var(--vert) 8% 10%, transparent 10% 30%, var(--vert) 30% 32%, transparent 32% 58%, var(--vert) 58% 60%, transparent 60%) no-repeat;
+  background: linear-gradient(120deg, transparent 0 8%, var(--accent) 8% 10%, transparent 10% 30%, var(--accent) 30% 32%, transparent 32% 58%, var(--accent) 58% 60%, transparent 60%) no-repeat;
   transform: rotate(-3deg); transform-origin: left bottom; }
-.layer--sign .check { position: absolute; right: 14%; bottom: 30%; width: 40px; height: 40px; border-radius: 50%; background: var(--vert); display: grid; place-items: center; color: #fff; font-size: 1.2rem; font-weight: 700; box-shadow: 0 8px 20px rgba(0,117,88,.3); animation: pop .5s var(--ease); }
+.layer--sign .check { position: absolute; right: 14%; bottom: 30%; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; color: #fff; font-size: 1.2rem; font-weight: 700; box-shadow: 0 8px 20px rgba(0,117,88,.3); animation: pop .5s var(--ease); }
 @keyframes pop { from { transform: scale(.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
 /* s3 — Recommandé LRE : avion + remise */
-.layer--send .plane { position: absolute; right: 16%; top: 26%; width: 46px; height: 46px; background: var(--vert);
+.layer--send .plane { position: absolute; right: 16%; top: 26%; width: 46px; height: 46px; background: var(--accent);
   clip-path: polygon(0 0, 100% 50%, 0 100%, 22% 50%); box-shadow: 0 10px 24px rgba(0,117,88,.3); animation: fly 2.4s var(--ease) infinite; }
 @keyframes fly { 0% { transform: translate(-10px,6px); } 50% { transform: translate(10px,-8px); } 100% { transform: translate(-10px,6px); } }
 @media (prefers-reduced-motion: reduce) { .layer--send .plane { animation: none; } }
 .layer--send .trail { position: absolute; left: 12%; top: 42%; width: 52%; height: 2px;
-  background: repeating-linear-gradient(90deg, var(--vert) 0 8px, transparent 8px 16px); opacity: .55; }
+  background: repeating-linear-gradient(90deg, var(--accent) 0 8px, transparent 8px 16px); opacity: .55; }
 
 /* indice de défilement */
 .jcue { position: absolute; right: 4%; bottom: 26px; z-index: 3; display: flex; align-items: center; gap: 10px; color: var(--j-faint); font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; }

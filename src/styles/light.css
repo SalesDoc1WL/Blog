@@ -8,35 +8,35 @@
 .theme-light { background: var(--bg); }
 
 /* ---------- boutons adaptés au clair ---------- */
-.theme-light .btn--elec { background: var(--vert); color: #fff; border-color: var(--vert); }
-.theme-light .btn--elec:hover { background: var(--vert-h); border-color: var(--vert-h); }
-.theme-light .hero .btn--ghost-dark { background: transparent; color: var(--vert); border-color: var(--vert); }
-.theme-light .hero .btn--ghost-dark:hover { background: var(--callout); color: var(--vert-h); border-color: var(--vert-h); }
+.theme-light .btn--elec { background: var(--accent); color: #fff; border-color: var(--accent); }
+.theme-light .btn--elec:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.theme-light .hero .btn--ghost-dark { background: transparent; color: var(--accent); border-color: var(--accent); }
+.theme-light .hero .btn--ghost-dark:hover { background: var(--accent-light); color: var(--accent-hover); border-color: var(--accent-hover); }
 
 /* ---------- header ---------- */
 .theme-light .hdr { background: rgba(255,255,255,.88); border-bottom-color: var(--border); }
 .theme-light .hdr__brand { color: var(--t1); }
-.theme-light .hdr__brand small { color: var(--vert); }
+.theme-light .hdr__brand small { color: var(--accent); }
 .theme-light .hdr__nav a { color: var(--t2); }
-.theme-light .hdr__nav a:hover { color: var(--vert); }
+.theme-light .hdr__nav a:hover { color: var(--accent); }
 .theme-light .hdr__burger { border-color: var(--border); color: var(--t1); }
 .theme-light .hdr__burger span { background: var(--t1); }
 @media (max-width: 940px) {
   .theme-light .hdr__nav.open { background: #fff; border-bottom-color: var(--border); }
   .theme-light .hdr__nav.open a { border-top-color: var(--border); }
 }
-.theme-light .liseret { background: linear-gradient(var(--vert) 0 50%, var(--gris) 50% 100%); }
+.theme-light .liseret { background: linear-gradient(var(--accent) 0 50%, #9ca3af 50% 100%); }
 
 /* ---------- hero ---------- */
 .theme-light .hero { background: var(--bg); color: var(--t2); }
 .theme-light .hero::after { background: radial-gradient(closest-side, rgba(0,144,108,.08), transparent 70%); }
 .theme-light .hero h1 { color: var(--t1); }
-.theme-light .hero h1 em { color: var(--vert); }
+.theme-light .hero h1 em { color: var(--accent); }
 .theme-light .hero__lead { color: var(--t2); }
-.theme-light .hero .overline--elec { color: var(--vert); }
+.theme-light .hero .overline--elec { color: var(--accent); }
 .theme-light .hero__figures { background: var(--border); border-color: var(--border); }
 .theme-light .fig { background: var(--bg); }
-.theme-light .fig__n { color: var(--vert); text-shadow: none; }
+.theme-light .fig__n { color: var(--accent); text-shadow: none; }
 .theme-light .fig__n i { color: var(--t2); }
 .theme-light .fig__l { color: var(--t2); }
 
@@ -44,13 +44,13 @@
 .theme-light .obsess { background: var(--alt); color: var(--t2); border-top-color: var(--border); }
 .theme-light .obsess__ghost { color: rgba(22,22,22,.05); }
 .theme-light .obsess__big .count { color: var(--t1); }
-.theme-light .obsess__big i { color: var(--vert); }
+.theme-light .obsess__big i { color: var(--accent); }
 .theme-light .obsess__lab { color: var(--t2); }
 .theme-light .obsess__text h2 { color: var(--t1); }
-.theme-light .obsess__text h2 em { color: var(--vert); }
+.theme-light .obsess__text h2 em { color: var(--accent); }
 .theme-light .obsess__text p { color: var(--t2); }
 .theme-light .obsess__goal { border-top-color: var(--border); }
-.theme-light .obsess__goal .count { color: var(--vert); }
+.theme-light .obsess__goal .count { color: var(--accent); }
 .theme-light .obsess__goal span { color: var(--t2); }
 
 /* ---------- chapitre ENTRANT : repasse en thème clair (vars --j-*) ---------- */
@@ -59,7 +59,7 @@
   --j-ink: var(--t1);
   --j-soft: var(--t2);
   --j-faint: var(--t-mention);
-  --j-accent: var(--vert);
+  --j-accent: var(--accent);
   --j-glow: rgba(0,144,108,.10);
   --j-ghost: rgba(22,22,22,.045);
   --j-track: var(--border);
@@ -79,36 +79,36 @@
 
 /* ---------- hinge (transition) en clair ---------- */
 .theme-light .hinge { background: var(--alt); }
-.theme-light .hinge__line { background: linear-gradient(rgba(0,144,108,0), var(--vert)); }
+.theme-light .hinge__line { background: linear-gradient(rgba(0,144,108,0), var(--accent)); }
 .theme-light .hinge__txt { color: var(--t2); }
 .theme-light .hinge__txt em { color: var(--t1); }
-.theme-light .hinge__arrow { color: var(--vert); }
+.theme-light .hinge__arrow { color: var(--accent); }
 
 /* ---------- expertises ---------- */
 .theme-light .exp { background: var(--bg); color: var(--t2); }
-.theme-light .exp .eyebrow--elec { color: var(--vert); }
+.theme-light .exp .eyebrow--elec { color: var(--accent); }
 .theme-light .exp .eyebrow--elec .no { color: var(--t1); }
 .theme-light .exp .eyebrow--elec::after { background: var(--border); }
 .theme-light .exp__list { border-top-color: var(--border); }
 .theme-light .exp__row { border-bottom-color: var(--border); }
 .theme-light .exp__no { color: var(--t-mention); }
-.theme-light .exp__norme { color: var(--vert); }
+.theme-light .exp__norme { color: var(--accent); }
 .theme-light .exp__t { color: var(--t1); }
 .theme-light .exp__d { color: var(--t2); }
-.theme-light .exp__arr { color: var(--vert); }
+.theme-light .exp__arr { color: var(--accent); }
 .theme-light .exp__row:hover { background: var(--alt); }
-.theme-light .exp__row:hover .exp__no { color: var(--vert); }
+.theme-light .exp__row:hover .exp__no { color: var(--accent); }
 
 /* ---------- mini-nav : socle clair lisible ---------- */
 .theme-light .snav__lab { background: rgba(10,19,16,.9); color: #fff; }
 
 /* ---------- footer en clair ---------- */
-.theme-light .foot { background: var(--alt); color: var(--t2); border-top-color: var(--vert); }
+.theme-light .foot { background: var(--alt); color: var(--t2); border-top-color: var(--accent); }
 .theme-light .foot__in { border-bottom-color: var(--border); }
 .theme-light .foot__brand { color: var(--t1); }
 .theme-light .foot__about { color: var(--t2); }
-.theme-light .foot__col h4 { color: var(--vert); }
+.theme-light .foot__col h4 { color: var(--accent); }
 .theme-light .foot__col a { color: var(--t2); }
-.theme-light .foot__col a:hover { color: var(--vert); }
+.theme-light .foot__col a:hover { color: var(--accent); }
 .theme-light .foot__bottom { color: var(--t-mention); }
 .theme-light .foot__bottom .normes span { color: var(--t-mention); border-color: var(--border); }

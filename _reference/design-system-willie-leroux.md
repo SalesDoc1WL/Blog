@@ -107,13 +107,12 @@ Un pli ouvert à la main, un dossier classé à la main : c'est du temps perdu, 
 **Diagnostic** — Un échange de 30 à 60 minutes pour cartographier vos flux.
 Sans démonstration produit, sans engagement. On regarde ensemble comment vos documents entrent, circulent et sont conservés, et où se trouvent les points de friction. Vous repartez avec une vision claire de votre maturité documentaire et des premières pistes. CTA : Réserver mon créneau.
 
-**Résultats — stats animées**
-- 2 000+ courriers/jour — établissement public financier
-- 15 ans de partenariat — assureur national
-- 30 000 plis postaux/an — acteur du financement
-- 6 normes & certifications mobilisées
+**Cadre de confiance — chiffres de capacité (sans donnée client)**
+- 6 expertises couvertes — du courrier entrant à l'archivage à valeur probante
+- 4 normes clés maîtrisées — NF 544, NF 461, eIDAS, RGPD
+- 100 % des étapes tracées, horodatées et opposables
 
-**Résultats — références (anonymisées)** : Banque, Secteur public, Assurance, Protection sociale, Courtage, Collectivités (voir `index.astro` pour le détail des puces).
+**Cadre de confiance — normes affichées** : NF 544, NF 461, NF K11-112, ISO 9001, ISO 27001, HDS, eIDAS, RGPD (voir `index.astro`, section `#resultats`).
 
 **Split « Confiance numérique »** — La valeur juridique ne se décrète pas. Elle se prouve.
 Copie fidèle NF 544, archivage NF 461, recommandé eIDAS : chaque maillon est tracé, horodaté et opposable. La chaîne de numérisation, de l'ouverture du pli à l'indexation, tient devant un juge. (Colonne droite : vidéo d'ambiance HD en boucle.)
