@@ -7,7 +7,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://willie-leroux.fr',
   trailingSlash: 'ignore',
-  integrations: [sitemap()],
+  // /tudor = candidature ciblée non indexée -> hors sitemap
+  integrations: [sitemap({ filter: (page) => !page.includes('/tudor') })],
   build: { format: 'directory' },
   image: {
     // Astro 4 native image optimization — auto WebP + AVIF

@@ -1,0 +1,315 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const poste = "Chargé de projets relations clients (CRM)";
+
+// Exigence de l'offre -> preuve dans le parcours de Willie
+const matches = [
+  {
+    need: "Stratégie CRM & clienteling",
+    proof:
+      "Chez <b>SNCF</b>, j'ai conçu et piloté des parcours CRM Journey Builder (mailing, SMS, notifications push) pour animer la relation client. Chez <b>Comongo</b>, j'ai fait vivre le portefeuille via le CRM Sellsy.",
+  },
+  {
+    need: "Plateformes CRM",
+    proof:
+      "Pratique de <b>Salesforce Marketing Cloud</b> (Journey Builder), PipeDrive et Sellsy. Prendre en main un nouvel outil vite fait bien fait, c'est mon quotidien d'avant-vente sur des produits techniques.",
+  },
+  {
+    need: "Analyse & segmentation des données clients",
+    proof:
+      "Chez <b>Comongo</b>, analyse et segmentation des prospects par persona et veille concurrentielle. Chez <b>SNCF</b>, reporting de campagnes suivi de près : <b>66 %</b> d'ouverture, <b>4 %</b> de clic, suivi de conversion.",
+  },
+  {
+    need: "Coordination comm · marketing · IT",
+    proof:
+      "Chez <b>SNCF</b>, j'ai coordonné la communication interne (agents de vente, accueil, contrôle) et externe (clients, offices de tourisme). Mon socle IT (intégration SaaS) me fait parler le même langage que les équipes techniques.",
+  },
+  {
+    need: "Former les filiales & points de vente",
+    proof:
+      "Chez <b>Koesio</b>, formation de l'équipe commerciale et animation de salons. J'aime transmettre et faire adopter un outil sur le terrain, pas seulement le déployer.",
+  },
+  {
+    need: "RGPD & réglementation des données",
+    proof:
+      "Chez <b>DocOne</b>, chiffrage de services GED/SAE et réponses aux appels d'offres publics, dans un cadre d'archivage à valeur probante où le <b>RGPD</b> est au centre.",
+  },
+  {
+    need: "Autonomie, rigueur & international",
+    proof:
+      "12 mois en pleine autonomie en Nouvelle-Calédonie, <b>anglais C1</b>, à l'aise à l'international. La rigueur du chiffre et du suivi client, je la porte depuis 4 ans.",
+  },
+];
+
+const parcours = [
+  {
+    role: "Assistant chef de projet marketing & relation commerciale",
+    co: "SNCF — Direction régionale TER Mobilités",
+    when: "2017 – 2018",
+    lens: "Le cœur CRM de mon parcours",
+    points: [
+      "Conception et pilotage de parcours CRM Journey Builder : mailing, SMS, notifications push",
+      "Communication interne (agents) et externe (clients, offices de tourisme)",
+    ],
+    kpis: ["66 % d'ouverture", "4 % de clic", "7-12 contenus/mois"],
+  },
+  {
+    role: "Business Developer — Solution numérique",
+    co: "Comongo",
+    when: "2019",
+    lens: "Segmentation & données clients",
+    points: [
+      "Analyse et segmentation des prospects : personae, veille concurrentielle",
+      "Animation du portefeuille dans le CRM Sellsy, reporting",
+    ],
+    kpis: [],
+  },
+  {
+    role: "Ingénieur commercial GED & Reprographie",
+    co: "Koesio",
+    when: "2020 – 2023",
+    lens: "Fidélisation & formation",
+    points: [
+      "Portefeuille de 200 clients suivis au quotidien",
+      "Formation de l'équipe commerciale, animation de salons",
+    ],
+    kpis: ["75 % de renouvellement", "200 clients suivis"],
+  },
+  {
+    role: "Cadre — Ingénieur d'affaires BPO",
+    co: "DocOne",
+    when: "2025",
+    lens: "Données & RGPD",
+    points: [
+      "Chiffrage de services GED / SAE, réponses aux appels d'offres publics",
+      "Environnement d'archivage à valeur probante, RGPD au centre",
+    ],
+    kpis: [],
+  },
+];
+---
+
+<BaseLayout
+  title={`Willie Leroux — Candidature ${poste} · Tudor Genève`}
+  description="Candidature ciblée de Willie Leroux pour le poste de Chargé de projets relations clients (CRM) chez Tudor, Genève."
+  noindex={true}
+>
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="/" class="nav__brand"><span class="dot"></span>Willie Leroux</a>
+    <div class="nav__links">
+      <a href="/">← CV complet</a>
+      <a href="#contact" class="nav__cta">Me contacter</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="hero__mesh"></div>
+    <div class="hero__grid-overlay"></div>
+    <div class="wrap hero__inner" style="grid-template-columns: 1.5fr .8fr">
+      <div>
+        <span class="hero__status reveal"><span class="pulse"></span>Candidature ciblée · Tudor Genève</span>
+        <h1 class="reveal" data-d="1" style="font-size: clamp(34px,5.4vw,66px)">Chargé de projets<br /><span class="accent">relations clients.</span></h1>
+        <p class="hero__role reveal" data-d="2">Par <b>Willie Leroux</b> · CDI, Genève</p>
+        <p class="hero__desc reveal" data-d="2">
+          Votre poste demande un profil CRM, données et clienteling, à l'aise entre le commerce,
+          le marketing et l'IT. C'est exactement le fil rouge de mon parcours. Voici, point par
+          point, ce que j'apporte à ce rôle.
+        </p>
+        <div class="hero__actions reveal" data-d="3">
+          <a href="#match" class="btn btn--flame">Pourquoi ma candidature <span class="arrow">↗</span></a>
+          <a href="/" class="btn btn--ghost">Voir mon CV complet</a>
+        </div>
+        <div class="hero__chips reveal" data-d="4">
+          <span class="chip">CRM · Salesforce · Sellsy · PipeDrive</span>
+          <span class="chip">Segmentation & reporting</span>
+          <span class="chip">Créateur du SaaS Viviar</span>
+          <span class="chip">Anglais C1</span>
+          <span class="chip">RGPD</span>
+        </div>
+      </div>
+      <div class="hero__portrait reveal" data-d="2">
+        <div class="hero__portrait-frame">
+          <img src="/img/willie-portrait.jpg" alt="Portrait de Willie Leroux" width="360" height="360" fetchpriority="high" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ATOUTS chiffrés -->
+  <section class="section section--dark" style="padding-block: clamp(48px,6vw,80px)">
+    <div class="wrap">
+      <span class="eyebrow reveal">Mes atouts pour ce poste</span>
+      <div class="kpis reveal" data-d="1">
+        <div class="kpi"><div class="kpi__n"><span data-count="4">0</span><span class="u">+</span></div><div class="kpi__l">années en relation et développement client</div></div>
+        <div class="kpi"><div class="kpi__n"><span data-count="66">0</span><span class="u"> %</span></div><div class="kpi__l">d'ouverture sur mes campagnes CRM<span class="kpi__src">SNCF · Journey Builder</span></div></div>
+        <div class="kpi"><div class="kpi__n"><span data-count="200">0</span></div><div class="kpi__l">clients suivis et fidélisés<span class="kpi__src">Koesio</span></div></div>
+        <div class="kpi"><div class="kpi__n"><span data-count="75">0</span><span class="u"> %</span></div><div class="kpi__l">de renouvellement de contrats<span class="kpi__src">Koesio</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATCH exigence -> preuve -->
+  <section class="section" id="match">
+    <div class="wrap">
+      <span class="eyebrow reveal">Point par point</span>
+      <h2 class="h2 reveal" data-d="1">Votre besoin, ma preuve.</h2>
+      <p class="lead reveal" data-d="2" style="margin-top:14px">À gauche, ce que demande l'offre. À droite, ce que j'ai déjà fait.</p>
+      <div class="match-grid">
+        {matches.map((m, i) => (
+          <div class="match-card reveal" data-d={(i % 3) + 1}>
+            <div class="match-need">
+              <span class="tag-need">Vous cherchez</span>
+              <h3>{m.need}</h3>
+            </div>
+            <div class="match-proof">
+              <span class="arm">→</span>
+              <p set:html={m.proof} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- VIVIAR : projet perso -->
+  <section class="section section--dark" id="viviar">
+    <div class="wrap" style="max-width: 940px">
+      <span class="eyebrow reveal">Un projet qui parle à ce poste</span>
+      <h2 class="h2 reveal" data-d="1">En parallèle, j'ai construit Viviar.</h2>
+      <p class="lead reveal" data-d="2" style="margin-top:18px; font-size: clamp(18px,2.2vw,22px)">
+        Viviar est une solution SaaS que j'ai développée seul. Elle repère, dans le fichier
+        d'une agence immobilière, les contacts dormants qui redonnent des signes d'intérêt, et
+        en tire chaque matin une liste d'appels priorisée.
+      </p>
+      <p class="lead reveal" data-d="3" style="margin-top:16px; font-size: clamp(18px,2.2vw,22px)">
+        Je l'ai codée en apprenant à me servir des modèles d'IA générative comme d'un outil de
+        travail quotidien. Et j'ai tranché moi-même les arbitrages de conformité : hébergement en
+        France, minimisation des données, aucun traceur tiers.
+      </p>
+      <div class="kpi-more reveal" data-d="3" style="margin-top:26px">
+        <span class="kpi-pill"><b>Donnée client → action</b> priorisée chaque matin</span>
+        <span class="kpi-pill"><b>IA générative</b> comme outil de travail quotidien</span>
+        <span class="kpi-pill"><b>RGPD by design</b> · France, minimisation, zéro traceur</span>
+      </div>
+      <div class="hero__actions reveal" data-d="4" style="margin-top:30px; margin-bottom:0">
+        <a href="https://viviar.fr/" target="_blank" rel="noopener" class="btn btn--flame">Voir viviar.fr <span class="arrow">↗</span></a>
+      </div>
+      <p class="lead reveal" data-d="4" style="margin-top:22px">
+        C'est exactement ce que demande votre poste : de la donnée client transformée en action,
+        et la conformité pensée dès le départ.
+      </p>
+    </div>
+  </section>
+
+  <!-- PARCOURS ciblé -->
+  <section class="section section--alt" id="parcours">
+    <div class="wrap">
+      <span class="eyebrow reveal">Mon parcours, lu pour ce poste</span>
+      <h2 class="h2 reveal" data-d="1">Les expériences qui comptent ici.</h2>
+      <div class="timeline">
+        {parcours.map((x, i) => (
+          <div class="tl-item reveal" data-d={(i % 3) + 1}>
+            <span class="tl-dot"></span>
+            <div class="tl-card">
+              <div class="tl-head">
+                <div class="tl-role">{x.role} · <span class="tl-co">{x.co}</span></div>
+                <span class="tl-when">{x.when}</span>
+              </div>
+              <div class="tl-meta">{x.lens}</div>
+              <ul class="tl-list">
+                {x.points.map((p) => <li>{p}</li>)}
+              </ul>
+              {x.kpis.length > 0 && (
+                <div class="tl-kpis">
+                  {x.kpis.map((k) => <span class="tl-kpi">{k}</span>)}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section section--dark" id="contact">
+    <div class="wrap contact-inner">
+      <div class="reveal">
+        <span class="eyebrow">Échangeons</span>
+        <h2 class="h2" style="max-width:18ch">Prêt à en parler de vive voix.</h2>
+        <div class="contact-list">
+          <a href="mailto:willie.leroux38@gmail.com?subject=Candidature%20—%20Chargé%20de%20projets%20relations%20clients%20(CRM)%20·%20Tudor%20Genève" class="contact-row">
+            <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+            <span><span class="k">Email</span><br /><span class="v">willie.leroux38@gmail.com</span></span>
+          </a>
+          <a href="tel:+33678518542" class="contact-row">
+            <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 011-2z"/></svg></span>
+            <span><span class="k">Téléphone</span><br /><span class="v">+33 6 78 51 85 42</span></span>
+          </a>
+          <div class="contact-row">
+            <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <span><span class="k">Mobilité</span><br /><span class="v">Ouvert à Genève · Permis B</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-card reveal" data-d="1">
+        <h3>Candidature pour {poste}</h3>
+        <p>Une page faite exprès pour votre offre. Mon CV complet reste à un clic, et je réponds vite pour un premier échange.</p>
+        <a href="mailto:willie.leroux38@gmail.com?subject=Candidature%20—%20Chargé%20de%20projets%20relations%20clients%20(CRM)%20·%20Tudor%20Genève" class="btn btn--flame">Envoyer ma candidature <span class="arrow">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <span class="brand">Willie Leroux</span>
+      <span class="meta">Candidature ciblée · {poste} · Tudor Genève</span>
+      <span class="meta"><a href="/">CV complet →</a></span>
+    </div>
+  </footer>
+
+  <script is:inline>
+    const nav = document.getElementById("nav");
+    const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function showEl(el) {
+      if (el.classList.contains("in")) return;
+      el.classList.add("in");
+      el.querySelectorAll("[data-w]").forEach((b) => { b.style.width = b.dataset.w + "%"; });
+      el.querySelectorAll("[data-count]").forEach(runCount);
+    }
+    const items = Array.from(document.querySelectorAll(".reveal"));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) { showEl(en.target); io.unobserve(en.target); } });
+    }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+    items.forEach((el) => io.observe(el));
+    const revealVisible = () => {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      items.forEach((el) => { if (el.getBoundingClientRect().top < vh * 0.92) showEl(el); });
+    };
+    revealVisible();
+    window.addEventListener("load", revealVisible);
+    setTimeout(() => items.forEach(showEl), 1600);
+
+    function runCount(el) {
+      const target = +el.dataset.count;
+      if (reduce) { el.textContent = target; return; }
+      const dur = 1200, t0 = performance.now();
+      const step = (t) => {
+        const p = Math.min((t - t0) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+  </script>
+</BaseLayout>

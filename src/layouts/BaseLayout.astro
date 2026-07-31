@@ -4,6 +4,7 @@ import "../styles/global.css";
 const {
   title = "Willie Leroux — Commercial en reconversion, ouvert à de nouveaux défis",
   description = "CV de Willie Leroux, business developer avec 4+ ans en commercial IT (SaaS, GED, BPO). En reconversion et ouvert à de nouveaux défis, tous secteurs. Compétences transférables : prospection, négociation, avant-vente, gestion de portefeuille client.",
+  noindex = false,
 } = Astro.props;
 
 const site = "https://willie-leroux.fr";
@@ -40,6 +41,7 @@ const jsonLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={site + "/"} />
     <meta name="author" content="Willie Leroux" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#14161D" />
 
     <!-- Open Graph -->
