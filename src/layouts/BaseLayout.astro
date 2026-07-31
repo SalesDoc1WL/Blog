@@ -1,71 +1,69 @@
 ---
-import '../styles/global.css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { url } from '../lib/url.js';
+import "../styles/global.css";
 
 const {
-  title,
-  description = "Willie Leroux, ingénieur d'affaires en flux documentaires : courrier entrant (BPO), numérisation NF 544, archivage électronique NF 461, recommandé électronique eIDAS. Diagnostic de maturité documentaire pour ETI, PME et organismes publics.",
-  ogImage = '/img/home/numerisation.jpg', // jamais la photo perso pour les partages
-  type = 'website',
-  jsonld = null,
-  client = 'interior', // 'home' sur l'accueil (séquences scroll), 'interior' ailleurs
-  readingBar = false,   // barre de progression de lecture (pages article/expertise)
+  title = "Willie Leroux — Commercial en reconversion, ouvert à de nouveaux défis",
+  description = "CV de Willie Leroux, business developer avec 4+ ans en commercial IT (SaaS, GED, BPO). En reconversion et ouvert à de nouveaux défis, tous secteurs. Compétences transférables : prospection, négociation, avant-vente, gestion de portefeuille client.",
 } = Astro.props;
 
-const titreComplet = title ? `${title} — Willie Leroux` : "Willie Leroux — Flux documentaires";
-const canonical = Astro.url.href;
-const ogAbs = new URL(url(ogImage), Astro.site).href;
-const jsonldList = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
+const site = "https://willie-leroux.fr";
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Willie Leroux",
+  jobTitle: "Business developer — en reconversion, ouvert à tous secteurs",
+  email: "mailto:willie.leroux38@gmail.com",
+  telephone: "+33678518542",
+  url: site,
+  image: `${site}/img/willie-portrait.jpg`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Grésy-sur-Aix",
+    postalCode: "73100",
+    addressCountry: "FR",
+  },
+  knowsLanguage: ["fr", "en"],
+  knowsAbout: ["GED", "SAE", "BPO documentaire", "SaaS", "Développement commercial", "Avant-vente", "Therefore", "Eukles"],
+  alumniOf: [
+    { "@type": "CollegeOrUniversity", name: "IDRAC Bordeaux" },
+    { "@type": "CollegeOrUniversity", name: "Université Grenoble Alpes" },
+    { "@type": "CollegeOrUniversity", name: "ISCOM Lyon" },
+  ],
+};
 ---
 <!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{titreComplet}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={canonical} />
-  <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={site + "/"} />
+    <meta name="author" content="Willie Leroux" />
+    <meta name="theme-color" content="#14161D" />
 
-  <!-- Open Graph -->
-  <meta property="og:type" content={type} />
-  <meta property="og:title" content={titreComplet} />
-  <meta property="og:description" content={description} />
-  <meta property="og:image" content={ogAbs} />
-  <meta property="og:url" content={canonical} />
-  <meta property="og:locale" content="fr_FR" />
-  <meta property="og:site_name" content="Willie Leroux — Flux documentaires" />
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={titreComplet} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={ogAbs} />
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={site} />
+    <meta property="og:image" content={site + "/img/willie-portrait.jpg"} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
 
-  <link rel="alternate" type="application/rss+xml" title="Veille — Willie Leroux" href={url('/rss.xml')} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  {jsonldList.map((data) => (
-    <script type="application/ld+json" set:html={JSON.stringify(data)} />
-  ))}
-</head>
-<body class="theme-light">
-  <!-- Filtre duotone (encre → menthe) pour la photographie documentaire -->
-  <svg class="duo-defs" width="0" height="0" aria-hidden="true" focusable="false">
-    <filter id="duo" color-interpolation-filters="sRGB">
-      <feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0" />
-      <feComponentTransfer>
-        <feFuncR type="table" tableValues="0.055 0.933" />
-        <feFuncG type="table" tableValues="0.137 0.961" />
-        <feFuncB type="table" tableValues="0.106 0.945" />
-      </feComponentTransfer>
-    </filter>
-  </svg>
-  <a class="skip" href="#main">Aller au contenu</a>
-  {readingBar && <div class="rprog"></div>}
-  <Header />
-  <main id="main"><slot /></main>
-  <Footer />
-  <script src={url(`/scripts/${client}.js`)} is:inline></script>
-</body>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>

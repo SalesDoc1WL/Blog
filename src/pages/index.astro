@@ -1,48 +1,422 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// --- Données CV --------------------------------------------------------------
+const experiences = [
+  {
+    role: "Cadre — Ingénieur d'affaires BPO",
+    co: "DocOne",
+    when: "2025 · 14 mois",
+    meta: "CDI · Externalisation documentaire",
+    points: [
+      "Réponses aux appels d'offres des pouvoirs publics",
+      "POC clients sur solutions GED / SAE",
+      "Chiffrage des services BPO : GED, SAE, production documentaire et communication",
+    ],
+    kpis: [],
+  },
+  {
+    role: "Ingénieur commercial GED",
+    co: "Office Plus — Nouvelle-Calédonie",
+    when: "2024 · 12 mois",
+    meta: "CDI · Intégration IT & Télécom",
+    points: [
+      "Chiffrage d'intégration informatique et télécom (software & hardware)",
+      "Études de financement leaser (Mutualease, Grenke, BNP Finance…)",
+      "Démonstrateur produit (POC) : Eukles / Therefore",
+      "Gestion des demandes d'interventions techniques",
+    ],
+    kpis: ["24 K€ de marge", "+37 nouveaux clients", "100 % de croissance", "Cross-selling 10 K€"],
+  },
+  {
+    role: "Ingénieur commercial GED & Reprographie",
+    co: "Koesio",
+    when: "2020 – 2023 · 3 ans",
+    meta: "CDI · Avant-vente & portefeuille",
+    points: [
+      "Avant-vente hardware / software : borne interactive, totem, affichage dynamique",
+      "Gestion d'un portefeuille de 200 clients en reprographie",
+      "Animation commerciale : salons, formation de l'équipe commerciale",
+    ],
+    kpis: ["75 % de renouvellement", "30 % de vente additionnelle", "200 clients gérés"],
+  },
+  {
+    role: "Business Developer — Solution numérique",
+    co: "Comongo",
+    when: "2019 · 1 an",
+    meta: "CDI · Gouvernance en holacratie",
+    points: [
+      "Cycle commercial complet : 1er RDV, démonstration, négociation, signature",
+      "Analyse et segmentation des prospects (personae, veille concurrentielle)",
+      "Acquisition via Sales Navigator & LinkedIn, animation dans le CRM Sellsy",
+      "Amélioration des processus et stratégies commerciales, reporting",
+    ],
+    kpis: [],
+  },
+  {
+    role: "Assistant chef de projet marketing & relation commerciale",
+    co: "SNCF — Direction régionale TER Mobilités",
+    when: "2017 – 2018 · 2 ans",
+    meta: "Alternance",
+    points: [
+      "Création de Journey Builder CRM : mailing, SMS, notifications push",
+      "Conception des messages internes (agents vente, accueil, contrôle) et externes (clients, offices de tourisme)",
+    ],
+    kpis: ["66 % de taux d'ouverture", "4 % de taux de clic", "7-12 contenus / mois"],
+  },
+];
+
+const gedSkills = [
+  { name: "Therefore", lvl: "Expert", pct: 100, expert: true },
+  { name: "Eukles", lvl: "Expert", pct: 100, expert: true },
+];
+const toolSkills = [
+  { name: "Artis", lvl: "Avancé", pct: 82 },
+  { name: "Progiciel Cristal", lvl: "Avancé", pct: 82 },
+  { name: "PipeDrive", lvl: "Avancé", pct: 82 },
+  { name: "Word · Excel · PowerPoint", lvl: "Avancé", pct: 85 },
+  { name: "Illustrator · InDesign", lvl: "Intermédiaire", pct: 58 },
+  { name: "Salesforce Marketing Cloud", lvl: "Débutant", pct: 35 },
+  { name: "SAGE 100", lvl: "Débutant", pct: 32 },
+  { name: "HTML · CSS", lvl: "Débutant", pct: 30 },
+];
+
+const softSkills = ["Humble", "Sociable", "Empathique", "Autonome", "Patient", "Capacité d'adaptation"];
+
+const formations = [
+  { yr: "2018 – 2020", title: "Master Stratégie & Innovation Marketing Digitale", school: "IDRAC — Bordeaux", n: "01" },
+  { yr: "2017 – 2018", title: "Licence professionnelle Rédaction Web", school: "Université Grenoble Alpes", n: "02" },
+  { yr: "2013 – 2015", title: "BTS Communication & Publicité", school: "ISCOM — Lyon", n: "03" },
+];
 ---
 
-<BaseLayout client="maintenance">
-  <section style="
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    text-align: center;
-  ">
-    <div style="max-width: 600px;">
-      <h1 style="
-        font-size: 3rem;
-        margin: 0 0 1rem;
-        color: var(--elec, #0ea5e9);
-      ">
-        Maintenance
-      </h1>
-      <p style="
-        font-size: 1.25rem;
-        margin: 1rem 0 2rem;
-        color: var(--text-secondary, #666);
-      ">
-        Le site est temporairement hors ligne pour maintenance.
-      </p>
-      <p style="
-        margin: 1.5rem 0;
-        color: var(--text-secondary, #666);
-        line-height: 1.6;
-      ">
-        Nous revenir très prochainement. Pour toute urgence, contactez-moi via
-        <a href="https://www.linkedin.com/in/willie-leroux-docone/" target="_blank" rel="noopener" style="color: var(--elec, #0ea5e9); text-decoration: none;">LinkedIn</a>.
-      </p>
-      <div style="
-        margin-top: 3rem;
-        padding-top: 2rem;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
-        font-size: 0.875rem;
-        color: var(--text-tertiary, #999);
-      ">
-        <p>Willie Leroux — Flux documentaires</p>
+<BaseLayout>
+  <!-- ============================ NAV ============================ -->
+  <nav class="nav" id="nav">
+    <a href="#top" class="nav__brand"><span class="dot"></span>Willie Leroux</a>
+    <div class="nav__links" id="navlinks">
+      <a href="#parcours">Parcours</a>
+      <a href="#competences">Compétences</a>
+      <a href="#formations">Formations</a>
+      <a href="#interets">À côté</a>
+      <a href="#contact" class="nav__cta">Me contacter</a>
+    </div>
+    <button class="nav__burger" id="burger" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </nav>
+
+  <!-- ============================ HERO ============================ -->
+  <header class="hero" id="top">
+    <div class="hero__mesh"></div>
+    <div class="hero__grid-overlay"></div>
+    <div class="wrap hero__inner">
+      <div>
+        <span class="hero__status reveal"><span class="pulse"></span>En reconversion · ouvert à de nouveaux défis</span>
+        <h1 class="reveal" data-d="1">Willie<br /><span class="accent">Leroux.</span></h1>
+        <p class="hero__role reveal" data-d="2">Business developer · <b>prêt à changer de cap</b></p>
+        <p class="hero__desc reveal" data-d="2">
+          Plus de 4 ans à prospecter, négocier et fidéliser dans l'IT. Aujourd'hui je cherche
+          autre chose : un nouveau métier, un autre secteur, une équipe où mon énergie commerciale
+          et ma capacité d'adaptation comptent plus que la ligne de mon CV. Le défi d'abord,
+          le secteur ensuite.
+        </p>
+        <div class="hero__actions reveal" data-d="3">
+          <a href="#contact" class="btn btn--flame">Me contacter <span class="arrow">↗</span></a>
+          <a href="#parcours" class="btn btn--ghost">Voir le parcours</a>
+        </div>
+        <div class="hero__chips reveal" data-d="4">
+          <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2v20M2 12h20"/></svg>4+ ans en commercial & avant-vente</span>
+          <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Ouvert à tous secteurs</span>
+          <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 21h18M6 21V9l6-4 6 4v12"/></svg>Grésy-sur-Aix (73) · Permis B</span>
+        </div>
+      </div>
+
+      <div class="hero__portrait reveal" data-d="2">
+        <div class="hero__portrait-frame">
+          <img src="/img/willie-portrait.jpg" alt="Portrait de Willie Leroux" width="360" height="360" fetchpriority="high" />
+        </div>
+        <div class="hero__badge hero__badge--tl">
+          <div class="n">PRÊT</div><div class="l">pour un nouveau secteur</div>
+        </div>
+        <div class="hero__badge hero__badge--br">
+          <div class="n">+37</div><div class="l">clients signés en 12 mois</div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap"><span class="hero__scroll"><span class="line"></span>Faites défiler</span></div>
+  </header>
+
+  <!-- ============================ KPI BAND ============================ -->
+  <section class="section section--dark" style="padding-block: clamp(48px,6vw,80px)">
+    <div class="wrap">
+      <span class="eyebrow reveal">En quelques chiffres</span>
+      <h2 class="h2 reveal" data-d="1" style="margin-bottom:14px">Ce que ça donne, concrètement.</h2>
+      <p class="lead reveal" data-d="2" style="margin-bottom:38px">Des chiffres réunis au fil de mes cinq postes, du privé au service public. Derrière chacun, il y a surtout des gens accompagnés et une parole tenue.</p>
+      <div class="kpis reveal" data-d="1">
+        <div class="kpi"><div class="kpi__n"><span data-count="4">0</span><span class="u">+</span></div><div class="kpi__l">années d'expérience, dans des univers très différents<span class="kpi__src">DocOne · Office Plus · Koesio · Comongo · SNCF</span></div></div>
+        <div class="kpi"><div class="kpi__n"><span class="u">+</span><span data-count="37">0</span></div><div class="kpi__l">clients accompagnés en un an<span class="kpi__src">Office Plus</span></div></div>
+        <div class="kpi"><div class="kpi__n"><span data-count="200">0</span></div><div class="kpi__l">clients suivis au quotidien<span class="kpi__src">Koesio</span></div></div>
+        <div class="kpi"><div class="kpi__n"><span data-count="75">0</span><span class="u"> %</span></div><div class="kpi__l">de clients qui ont renouvelé leur confiance<span class="kpi__src">Koesio</span></div></div>
+      </div>
+      <div class="kpi-more reveal" data-d="2">
+        <span class="lbl">et aussi</span>
+        <span class="kpi-pill"><b>100 %</b> de croissance en un an · Office Plus</span>
+        <span class="kpi-pill"><b>30 %</b> de ventes additionnelles · Koesio</span>
+        <span class="kpi-pill"><b>66 %</b> d'ouverture sur mes emailings · SNCF</span>
+        <span class="kpi-pill"><b>7 à 12</b> contenus créés par mois · SNCF</span>
       </div>
     </div>
   </section>
+
+  <!-- ============================ PROFIL ============================ -->
+  <section class="section" id="profil">
+    <div class="wrap" style="max-width: 900px">
+      <span class="eyebrow reveal">Le cap</span>
+      <p class="h2 reveal" data-d="1" style="max-width: 22ch; margin-bottom: 28px">Envie d'un nouveau départ.</p>
+      <p class="lead reveal" data-d="2" style="max-width: 68ch; font-size: clamp(18px,2.2vw,22px); color: var(--text)">
+        Convaincre, négocier, apprendre vite, faire grandir un portefeuille client : ces réflexes
+        ne dépendent pas d'un secteur. Après plusieurs années dans l'IT et le documentaire, j'ai
+        envie de m'en servir ailleurs. Et pas seulement dans le commerce ou la tech.
+      </p>
+      <p class="lead reveal" data-d="3" style="max-width: 68ch; font-size: clamp(18px,2.2vw,22px); color: var(--text); margin-top:20px">
+        Le social et les métiers manuels m'attirent tout autant. J'ai déjà été auxiliaire de vie
+        à l'agence ADPA, et accompagner les gens au quotidien me parle vraiment. Ce que je cherche,
+        c'est un travail concret et utile, dans une équipe qui avance. Le domaine, je suis prêt à
+        l'apprendre.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================ PARCOURS ============================ -->
+  <section class="section section--alt" id="parcours">
+    <div class="wrap">
+      <span class="eyebrow reveal">Expériences professionnelles</span>
+      <h2 class="h2 reveal" data-d="1">Un parcours qui se lit en résultats.</h2>
+      <div class="timeline">
+        {experiences.map((x, i) => (
+          <div class="tl-item reveal" data-d={(i % 3) + 1}>
+            <span class="tl-dot"></span>
+            <div class="tl-card">
+              <div class="tl-head">
+                <div class="tl-role">{x.role} · <span class="tl-co">{x.co}</span></div>
+                <span class="tl-when">{x.when}</span>
+              </div>
+              <div class="tl-meta">{x.meta}</div>
+              <ul class="tl-list">
+                {x.points.map((p) => <li>{p}</li>)}
+              </ul>
+              {x.kpis.length > 0 && (
+                <div class="tl-kpis">
+                  {x.kpis.map((k) => <span class="tl-kpi">{k}</span>)}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ COMPÉTENCES ============================ -->
+  <section class="section" id="competences">
+    <div class="wrap">
+      <span class="eyebrow reveal">Compétences</span>
+      <h2 class="h2 reveal" data-d="1">Des compétences qui voyagent.</h2>
+      <p class="lead reveal" data-d="2" style="margin-top:14px">Acquises dans l'IT, transposables ailleurs. Le socle commercial reste le même quel que soit le produit.</p>
+      <div class="skill-grid">
+        <div class="skill-card reveal" data-d="1">
+          <h3><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h6"/></svg></span>GED SaaS</h3>
+          <div class="sub">Gestion électronique de documents</div>
+          {gedSkills.map((s) => (
+            <div class="bar-row">
+              <div class="bar-top"><span class="bar-name">{s.name}</span><span class="bar-lvl">{s.lvl}</span></div>
+              <div class="bar-track"><span class={"bar-fill" + (s.expert ? " expert" : "")} data-w={s.pct}></span></div>
+            </div>
+          ))}
+          <div class="sub" style="margin-top:22px;margin-bottom:12px">CRM & prospection</div>
+          <div class="tag-cloud">
+            <span class="tag">Salesforce MC</span><span class="tag">PipeDrive</span>
+            <span class="tag">Sellsy</span><span class="tag">Sales Navigator</span><span class="tag">LinkedIn</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal" data-d="2">
+          <h3><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H4z"/><path d="M2 20h20M9 8l2 2 4-4"/></svg></span>Outils & bureautique</h3>
+          <div class="sub">Logiciels maîtrisés</div>
+          {toolSkills.map((s) => (
+            <div class="bar-row">
+              <div class="bar-top"><span class="bar-name">{s.name}</span><span class="bar-lvl">{s.lvl}</span></div>
+              <div class="bar-track"><span class="bar-fill" data-w={s.pct}></span></div>
+            </div>
+          ))}
+        </div>
+
+        <div class="skill-card reveal" data-d="1">
+          <h3><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/><circle cx="12" cy="12" r="10"/></svg></span>Langues</h3>
+          <div class="sub">Écrit & oral</div>
+          <div class="bar-row"><div class="bar-top"><span class="bar-name">Français</span><span class="bar-lvl">Langue maternelle</span></div><div class="bar-track"><span class="bar-fill expert" data-w="100"></span></div></div>
+          <div class="bar-row"><div class="bar-top"><span class="bar-name">Anglais</span><span class="bar-lvl">Niveau C1</span></div><div class="bar-track"><span class="bar-fill" data-w="85"></span></div></div>
+        </div>
+
+        <div class="skill-card reveal" data-d="2">
+          <h3><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 015 5c0 2-1 3-1 5H8c0-2-1-3-1-5a5 5 0 015-5zM9 20h6M10 22h4"/></svg></span>Soft skills</h3>
+          <div class="sub">Ce que disent mes équipes</div>
+          <div class="tag-cloud">
+            {softSkills.map((s) => <span class="tag soft">{s}</span>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ FORMATIONS ============================ -->
+  <section class="section section--alt" id="formations">
+    <div class="wrap">
+      <span class="eyebrow reveal">Formations</span>
+      <h2 class="h2 reveal" data-d="1">Les fondations.</h2>
+      <div class="edu-grid">
+        {formations.map((f, i) => (
+          <div class="edu-card reveal" data-d={i + 1}>
+            <span class="num">{f.n}</span>
+            <div class="yr">{f.yr}</div>
+            <h3>{f.title}</h3>
+            <div class="school">{f.school}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ CENTRES D'INTÉRÊT ============================ -->
+  <section class="section section--dark" id="interets">
+    <div class="wrap">
+      <span class="eyebrow reveal">Loisirs & engagements</span>
+      <h2 class="h2 reveal" data-d="1">Ce qui me tient en mouvement.</h2>
+      <div class="interest-grid">
+        <div class="int-card reveal" data-d="1">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2l3 5-3 3-3-3zM4.5 8l5 2v4l-5 1zM19.5 8l-5 2v4l5 1zM8 19l4-2 4 2"/></svg></div>
+          <h3>Football</h3>
+          <p>Dix ans de compétition. J'y ai pris le goût de l'effort et le sens du collectif.</p>
+        </div>
+        <div class="int-card reveal" data-d="2">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 4l-2 6h5l-4 10 1-7H8z"/></svg></div>
+          <h3>Trail</h3>
+          <p>La course en montagne, pour la tête autant que pour les jambes. Le terrain, encore.</p>
+        </div>
+        <div class="int-card reveal" data-d="3">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2 4 4 0 017 2c0 5.5-7 10-7 10z"/></svg></div>
+          <h3>Auxiliaire de vie</h3>
+          <p>Un passage à l'agence ADPA, auprès de personnes dépendantes. Du concret et de l'humain, tous les jours.</p>
+        </div>
+        <div class="int-card reveal" data-d="1">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <h3>Londres</h3>
+          <p>Dix mois sur place en voyage linguistique. De quoi installer un anglais courant, niveau C1.</p>
+        </div>
+        <div class="int-card reveal" data-d="2">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2a15 15 0 010 20"/><circle cx="12" cy="12" r="10"/></svg></div>
+          <h3>Voyages</h3>
+          <p>Côte d'Ivoire, Espagne, Angleterre, Nouvelle-Calédonie. Je suis à l'aise loin de chez moi.</p>
+        </div>
+        <div class="int-card reveal" data-d="3">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg></div>
+          <h3>Culture digitale</h3>
+          <p>Vidéaste à mes heures, veille tech avec Micode, et des médias que je suis de près : Legend, Arte, Vice.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ CONTACT ============================ -->
+  <section class="section section--dark" id="contact" style="padding-top:0">
+    <div class="wrap contact-inner">
+      <div class="reveal">
+        <span class="eyebrow">Contact</span>
+        <h2 class="h2" style="max-width:16ch">Discutons de votre prochain défi.</h2>
+        <div class="contact-list">
+          <a href="mailto:willie.leroux38@gmail.com" class="contact-row">
+            <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+            <span><span class="k">Email</span><br /><span class="v">willie.leroux38@gmail.com</span></span>
+          </a>
+          <a href="tel:+33678518542" class="contact-row">
+            <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 011-2z"/></svg></span>
+            <span><span class="k">Téléphone</span><br /><span class="v">+33 6 78 51 85 42</span></span>
+          </a>
+          <div class="contact-row">
+            <span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <span><span class="k">Localisation</span><br /><span class="v">Grésy-sur-Aix · 73100</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-card reveal" data-d="1">
+        <h3>Un poste ou un projet à me proposer&nbsp;?</h3>
+        <p>Commercial polyvalent en reconversion, disponible rapidement et ouvert à tous les secteurs. Curieux de découvrir le vôtre. Réponse rapide, échange sans détour.</p>
+        <a href="mailto:willie.leroux38@gmail.com?subject=Prise%20de%20contact%20—%20CV%20Willie%20Leroux" class="btn btn--flame">Envoyer un email <span class="arrow">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="footer">
+    <div class="wrap">
+      <span class="brand">Willie Leroux</span>
+      <span class="meta">© {new Date().getFullYear()} · Business developer · en reconversion, ouvert à de nouveaux défis</span>
+      <span class="meta"><a href="#top">Retour en haut ↑</a></span>
+    </div>
+  </footer>
+
+  <!-- ============================ SCRIPT ============================ -->
+  <script is:inline>
+    // Nav scrolled state
+    const nav = document.getElementById("nav");
+    const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Burger
+    const burger = document.getElementById("burger");
+    const links = document.getElementById("navlinks");
+    burger.addEventListener("click", () => links.classList.toggle("open"));
+    links.addEventListener("click", (e) => { if (e.target.tagName === "A") links.classList.remove("open"); });
+
+    // Reveal on scroll
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function showEl(el) {
+      if (el.classList.contains("in")) return;
+      el.classList.add("in");
+      el.querySelectorAll("[data-w]").forEach((b) => { b.style.width = b.dataset.w + "%"; });
+      el.querySelectorAll("[data-count]").forEach(runCount);
+    }
+    const items = Array.from(document.querySelectorAll(".reveal"));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) { showEl(en.target); io.unobserve(en.target); } });
+    }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+    items.forEach((el) => io.observe(el));
+
+    // Reveal anything already in the viewport at load (covers no-JS-scroll / non-composited render)
+    const revealVisible = () => {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      items.forEach((el) => { if (el.getBoundingClientRect().top < vh * 0.92) showEl(el); });
+    };
+    revealVisible();
+    window.addEventListener("load", revealVisible);
+    // Ultimate safety net: never leave content invisible
+    setTimeout(() => items.forEach(showEl), 1600);
+
+    // Count-up
+    function runCount(el) {
+      const target = +el.dataset.count;
+      if (reduce) { el.textContent = target; return; }
+      const dur = 1200; const t0 = performance.now();
+      const step = (t) => {
+        const p = Math.min((t - t0) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+  </script>
 </BaseLayout>
