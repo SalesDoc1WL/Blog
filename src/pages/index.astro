@@ -4,14 +4,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 // --- Données CV --------------------------------------------------------------
 const experiences = [
   {
-    role: "Cadre — Ingénieur d'affaires BPO",
+    role: "Cadre — Ingénieur d'affaires · production documentaire",
     co: "DocOne",
     when: "2025 · 14 mois",
-    meta: "CDI · Externalisation documentaire",
+    meta: "CDI · BPO & production documentaire",
     points: [
-      "Réponses aux appels d'offres des pouvoirs publics",
+      "Chiffrage de prestations de production documentaire : mise en page, éditique, GED, SAE",
+      "Réponses aux appels d'offres publics sur des marchés documentaires",
       "POC clients sur solutions GED / SAE",
-      "Chiffrage des services BPO : GED, SAE, production documentaire et communication",
     ],
     kpis: [],
   },
@@ -19,12 +19,11 @@ const experiences = [
     role: "Ingénieur commercial GED",
     co: "Office Plus — Nouvelle-Calédonie",
     when: "2024 · 12 mois",
-    meta: "CDI · Intégration IT & Télécom",
+    meta: "CDI · Gestion documentaire & intégration IT",
     points: [
+      "Démonstrateur produit (POC) sur solutions de gestion documentaire : Eukles / Therefore",
       "Chiffrage d'intégration informatique et télécom (software & hardware)",
       "Études de financement leaser (Mutualease, Grenke, BNP Finance…)",
-      "Démonstrateur produit (POC) : Eukles / Therefore",
-      "Gestion des demandes d'interventions techniques",
     ],
     kpis: ["24 K€ de marge", "+37 nouveaux clients", "100 % de croissance", "Cross-selling 10 K€"],
   },
@@ -32,11 +31,11 @@ const experiences = [
     role: "Ingénieur commercial GED & Reprographie",
     co: "Koesio",
     when: "2020 – 2023 · 3 ans",
-    meta: "CDI · Avant-vente & portefeuille",
+    meta: "CDI · Reprographie, impression & supports visuels",
     points: [
-      "Avant-vente hardware / software : borne interactive, totem, affichage dynamique",
-      "Gestion d'un portefeuille de 200 clients en reprographie",
-      "Animation commerciale : salons, formation de l'équipe commerciale",
+      "Reprographie et impression : gestion d'un portefeuille de 200 clients",
+      "Avant-vente de supports visuels : affichage dynamique, bornes interactives, totems",
+      "Animation commerciale : salons, formation de l'équipe",
     ],
     kpis: ["75 % de renouvellement", "30 % de vente additionnelle", "200 clients gérés"],
   },
@@ -49,18 +48,17 @@ const experiences = [
       "Cycle commercial complet : 1er RDV, démonstration, négociation, signature",
       "Analyse et segmentation des prospects (personae, veille concurrentielle)",
       "Acquisition via Sales Navigator & LinkedIn, animation dans le CRM Sellsy",
-      "Amélioration des processus et stratégies commerciales, reporting",
     ],
     kpis: [],
   },
   {
-    role: "Assistant chef de projet marketing & relation commerciale",
+    role: "Assistant chef de projet marketing — conception de supports",
     co: "SNCF — Direction régionale TER Mobilités",
     when: "2017 – 2018 · 2 ans",
-    meta: "Alternance",
+    meta: "Alternance · communication & mise en forme",
     points: [
-      "Création de Journey Builder CRM : mailing, SMS, notifications push",
-      "Conception des messages internes (agents vente, accueil, contrôle) et externes (clients, offices de tourisme)",
+      "Conception et mise en forme de supports de communication interne (agents) et externe (clients, offices de tourisme)",
+      "Production de contenus multicanaux : mailing, SMS, notifications (Journey Builder CRM)",
     ],
     kpis: ["66 % de taux d'ouverture", "4 % de taux de clic", "7-12 contenus / mois"],
   },
@@ -248,7 +246,8 @@ const viviarStack = ["PocketBase", "Go", "Next.js", "Scaleway", "IA générative
   <section class="section section--alt" id="parcours">
     <div class="wrap">
       <span class="eyebrow reveal">Expériences professionnelles</span>
-      <h2 class="h2 reveal" data-d="1">Un parcours qui se lit en résultats.</h2>
+      <h2 class="h2 reveal" data-d="1">Un parcours déjà proche du document.</h2>
+      <p class="lead reveal" data-d="2" style="margin-top:14px">Relu côté technique : production documentaire, reprographie, impression et mise en forme de supports reviennent d'un poste à l'autre.</p>
       <div class="timeline">
         {experiences.map((x, i) => (
           <div class="tl-item reveal" data-d={(i % 3) + 1}>
