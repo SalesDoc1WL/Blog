@@ -88,6 +88,15 @@ const formations = [
   { yr: "2017 – 2018", title: "Licence professionnelle Rédaction Web", school: "Université Grenoble Alpes", n: "02" },
   { yr: "2013 – 2015", title: "BTS Communication & Publicité", school: "ISCOM — Lyon", n: "03" },
 ];
+
+// Captures produit Viviar (données de démonstration, compte « Camille Demo »)
+const viviarShots = [
+  { src: "/img/viviar/dashboard.png", alt: "Tableau de bord Viviar", cap: "Le tableau de bord : les contacts à rappeler aujourd'hui, triés par Signal, avec le motif de l'appel." },
+  { src: "/img/viviar/contacts.png", alt: "Liste des contacts Viviar", cap: "Le vivier complet, segmenté chaud / tiède / froid selon le dernier signe de vie." },
+  { src: "/img/viviar/fiche-contact.png", alt: "Fiche contact Viviar", cap: "La fiche contact : pourquoi appeler maintenant, angle d'appel suggéré, trajectoire du signal." },
+  { src: "/img/viviar/confiance-rgpd.png", alt: "Confiance & conformité Viviar", cap: "Hébergement en France, cadre RGPD de bout en bout, aucun traceur tiers." },
+];
+const viviarStack = ["PocketBase", "Go", "Next.js", "Scaleway", "IA générative"];
 ---
 
 <BaseLayout>
@@ -95,10 +104,10 @@ const formations = [
   <nav class="nav" id="nav">
     <a href="#top" class="nav__brand"><span class="dot"></span>Willie Leroux</a>
     <div class="nav__links" id="navlinks">
+      <a href="#viviar">Viviar</a>
       <a href="#parcours">Parcours</a>
       <a href="#competences">Compétences</a>
       <a href="#formations">Formations</a>
-      <a href="#interets">À côté</a>
       <a href="#contact" class="nav__cta">Me contacter</a>
     </div>
     <button class="nav__burger" id="burger" aria-label="Menu">
@@ -112,18 +121,24 @@ const formations = [
     <div class="hero__grid-overlay"></div>
     <div class="wrap hero__inner">
       <div>
-        <span class="hero__status reveal"><span class="pulse"></span>En reconversion · ouvert à de nouveaux défis</span>
+        <span class="hero__status reveal"><span class="pulse"></span>En reconversion · profil produit & nouvelles technologies</span>
         <h1 class="reveal" data-d="1">Willie<br /><span class="accent">Leroux.</span></h1>
-        <p class="hero__role reveal" data-d="2">Business developer · <b>prêt à changer de cap</b></p>
+        <p class="hero__role reveal" data-d="2">Commercial passé au produit · <b>je vends et je construis</b></p>
         <p class="hero__desc reveal" data-d="2">
-Actuellement Ingénieur d'Affaires GED chez Docone, je souhaite revenir à mon cœur de métier et valoriser ma formation initiale en m'orientant vers un poste plus technique et sédentaire d'expert en conception et production documentaire        </p>
+          Plus de 4 ans à prospecter, négocier et fidéliser dans l'IT. Puis je suis passé de
+          l'autre côté : j'ai codé et mis en ligne <b>Viviar</b>, un SaaS complet, seul, en me
+          servant des modèles d'IA générative comme outil de travail quotidien. Je cherche une
+          équipe orientée produit et nouvelles technologies où faire les deux : la fibre
+          commerciale et le goût de fabriquer.
+        </p>
         <div class="hero__actions reveal" data-d="3">
-          <a href="#contact" class="btn btn--flame">Me contacter <span class="arrow">↗</span></a>
-          <a href="#parcours" class="btn btn--ghost">Voir le parcours</a>
+          <a href="#viviar" class="btn btn--flame">Voir ce que j'ai construit <span class="arrow">↗</span></a>
+          <a href="#contact" class="btn btn--ghost">Me contacter</a>
         </div>
         <div class="hero__chips reveal" data-d="4">
-          <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2v20M2 12h20"/></svg>4+ ans en commercial & avant-vente</span>
-          <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Ouvert à tous secteurs</span>
+          <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2v20M2 12h20"/></svg>4+ ans commercial & avant-vente</span>
+          <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 17l6-6-6-6M12 19h8"/></svg>Créateur du SaaS Viviar</span>
+          <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zM2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>IA générative au quotidien</span>
           <span class="chip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 21h18M6 21V9l6-4 6 4v12"/></svg>Grésy-sur-Aix (73) · Permis B</span>
         </div>
       </div>
@@ -133,7 +148,7 @@ Actuellement Ingénieur d'Affaires GED chez Docone, je souhaite revenir à mon c
           <img src="/img/willie-portrait.jpg" alt="Portrait de Willie Leroux" width="360" height="360" fetchpriority="high" />
         </div>
         <div class="hero__badge hero__badge--tl">
-          <div class="n">PRÊT</div><div class="l">pour un nouveau secteur</div>
+          <div class="n">LIVE</div><div class="l">viviar.fr en production</div>
         </div>
         <div class="hero__badge hero__badge--br">
           <div class="n">+37</div><div class="l">clients signés en 12 mois</div>
@@ -169,24 +184,57 @@ Actuellement Ingénieur d'Affaires GED chez Docone, je souhaite revenir à mon c
   <section class="section" id="profil">
     <div class="wrap" style="max-width: 900px">
       <span class="eyebrow reveal">Le cap</span>
-      <p class="h2 reveal" data-d="1" style="max-width: 22ch; margin-bottom: 28px">Envie d'un nouveau départ.</p>
+      <p class="h2 reveal" data-d="1" style="max-width: 22ch; margin-bottom: 28px">Vendre, puis construire.</p>
       <p class="lead reveal" data-d="2" style="max-width: 68ch; font-size: clamp(18px,2.2vw,22px); color: var(--text)">
-         Actuellement ingénieur d’affaires chez Docone à Mérignac, je prospect & répond aux
-appels d’offres en GED, SAE et éditique. Avec l'agrandissement de ma famille, je souhaite
-aujourd'hui m'éloigner du commerce au profit d'un quotidien plus sédentaire et
-technique.
-      <p class="lead reveal" data-d="3" style="max-width: 68ch; font-size: clamp(18px,2.2vw,22px); color: var(--text); margin-top:20px">
-Déjà familiarisé avec les standards de la gestion documentaire, je souhaite désormais me
-reconvertir pour devenir un véritable expert technique en conception/production
-documentaire. Pour réussir ce virage, je recherche une entreprise prête à me proposer un
-réel parcours d'intégration et de formation progressive. C'est cet accompagnement
-structuré qui me permettra de monter rapidement en compétences de manière
-rigoureuse et sereine.
-      <p class="lead reveal" data-d="3" style="max-width: 68ch; font-size: clamp(18px,2.2vw,22px); color: var(--text); margin-top:20px">
-Mes expériences professionnelles et  études m'ontapporté des bases solides en PAO.
-Même si je ne me prétends pas expert dans ce domaine, ce sont des acquis
-immédiatement mobilisables.   
+        Convaincre, négocier, apprendre vite, faire grandir un portefeuille client : ces réflexes
+        commerciaux ne dépendent pas d'un secteur. Après plusieurs années dans l'IT et le
+        documentaire, j'ai eu envie de passer de l'autre côté et de fabriquer, pas seulement de vendre.
       </p>
+      <p class="lead reveal" data-d="3" style="max-width: 68ch; font-size: clamp(18px,2.2vw,22px); color: var(--text); margin-top:20px">
+        Alors j'ai construit Viviar : un vrai produit en ligne, du code jusqu'à la mise en
+        production, en apprenant à me servir des nouvelles technologies. Ce que je cherche
+        maintenant, c'est une équipe orientée produit et tech où mon double profil — commercial de
+        terrain et builder — a de la valeur.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================ VIVIAR ============================ -->
+  <section class="section section--dark" id="viviar">
+    <div class="wrap">
+      <span class="eyebrow reveal">Projet · un SaaS que j'ai construit seul</span>
+      <h2 class="h2 reveal" data-d="1">Viviar : de l'idée au produit en ligne.</h2>
+      <p class="lead reveal" data-d="2" style="margin-top:18px; font-size: clamp(18px,2.2vw,22px)">
+        Viviar est la mémoire du fichier d'une agence immobilière. Il repère les contacts qui
+        dorment dans la boîte mail (vendeurs comme acquéreurs), détecte ceux qui redonnent des
+        signes d'intérêt, et pousse chaque matin une courte liste d'appels priorisée par
+        <b>Signal</b> — chaud, tiède, froid. Codé, hébergé et mis en production par moi, seul.
+      </p>
+      <div class="kpi-more reveal" data-d="3" style="margin-top:24px">
+        <span class="kpi-pill"><b>Mémoire du vivier</b> · se souvient du silence, garde l'historique</span>
+        <span class="kpi-pill"><b>Liste du matin</b> · les bons appels, priorisés, sans la demander</span>
+        <span class="kpi-pill"><b>France / RGPD</b> · hébergé à Paris, zéro traceur tiers</span>
+      </div>
+
+      <div class="vv-gallery reveal" data-d="2">
+        {viviarShots.map((s) => (
+          <figure class="vv-shot">
+            <div class="vv-shot__frame">
+              <img src={s.src} alt={s.alt} loading="lazy" decoding="async" />
+            </div>
+            <figcaption>{s.cap}</figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <div class="vv-foot reveal" data-d="3">
+        <div class="vv-stack">
+          <span class="vv-stack__lbl">Stack</span>
+          {viviarStack.map((t) => <span class="vv-stack__tag">{t}</span>)}
+        </div>
+        <a href="https://viviar.fr/" target="_blank" rel="noopener" class="btn btn--flame">Voir viviar.fr <span class="arrow">↗</span></a>
+      </div>
+      <p class="vv-note reveal" data-d="4">Captures issues du produit réel, sur des données de démonstration (compte « Camille Demo »).</p>
     </div>
   </section>
 
@@ -244,6 +292,17 @@ immédiatement mobilisables.
         </div>
 
         <div class="skill-card reveal" data-d="2">
+          <h3><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3M3 16v3a2 2 0 002 2h3m8 0h3a2 2 0 002-2v-3M9 9l2 2-2 2m4 2h2"/></svg></span>Produit & tech</h3>
+          <div class="sub">Appris en construisant Viviar</div>
+          <div class="tag-cloud">
+            <span class="tag">Next.js</span><span class="tag">Go</span><span class="tag">PocketBase</span>
+            <span class="tag">Scaleway</span><span class="tag">IA générative</span><span class="tag">HTML · CSS</span>
+            <span class="tag">RGPD by design</span>
+          </div>
+          <div class="sub" style="margin-top:22px;margin-bottom:0">Du code à la mise en production, en autonomie.</div>
+        </div>
+
+        <div class="skill-card reveal" data-d="1">
           <h3><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H4z"/><path d="M2 20h20M9 8l2 2 4-4"/></svg></span>Outils & bureautique</h3>
           <div class="sub">Logiciels maîtrisés</div>
           {toolSkills.map((s) => (
@@ -354,7 +413,7 @@ immédiatement mobilisables.
 
       <div class="contact-card reveal" data-d="1">
         <h3>Un poste ou un projet à me proposer&nbsp;?</h3>
-        <p>Commercial polyvalent en reconversion, disponible rapidement et ouvert à tous les secteurs. Curieux de découvrir le vôtre. Réponse rapide, échange sans détour.</p>
+        <p>Commercial de terrain devenu builder, en reconversion vers le produit et les nouvelles technologies. Disponible rapidement, ouvert à toute entreprise qui cherche ce double profil. Réponse rapide, échange sans détour.</p>
         <a href="mailto:willie.leroux38@gmail.com?subject=Prise%20de%20contact%20—%20CV%20Willie%20Leroux" class="btn btn--flame">Envoyer un email <span class="arrow">↗</span></a>
       </div>
     </div>
@@ -364,10 +423,79 @@ immédiatement mobilisables.
   <footer class="footer">
     <div class="wrap">
       <span class="brand">Willie Leroux</span>
-      <span class="meta">© {new Date().getFullYear()} · Business developer · en reconversion, ouvert à de nouveaux défis</span>
+      <span class="meta">© {new Date().getFullYear()} · Commercial & builder produit · en reconversion vers le produit et la tech</span>
       <span class="meta"><a href="#top">Retour en haut ↑</a></span>
     </div>
   </footer>
+
+  <!-- ============================ STYLES VIVIAR ============================ -->
+  <style>
+    .vv-gallery {
+      margin-top: 44px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    .vv-shot { display: flex; flex-direction: column; gap: 14px; }
+    .vv-shot__frame {
+      border: 1px solid var(--line-dark);
+      border-radius: var(--radius);
+      background: var(--ink-2);
+      overflow: hidden;
+      max-height: 440px;
+      box-shadow: 0 24px 60px -24px rgba(0,0,0,.6);
+    }
+    .vv-shot__frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .vv-shot figcaption {
+      font-size: 14.5px;
+      color: var(--text-inv-dim);
+      line-height: 1.5;
+      padding-inline: 2px;
+    }
+    .vv-foot {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .vv-stack { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; }
+    .vv-stack__lbl {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-inv-dim);
+      margin-right: 4px;
+    }
+    .vv-stack__tag {
+      font-family: var(--f-mono);
+      font-size: 13px;
+      padding: 6px 12px;
+      border: 1px solid var(--line-dark);
+      border-radius: 999px;
+      color: var(--text-inv);
+      background: var(--ink-2);
+    }
+    .vv-note {
+      margin-top: 22px;
+      font-size: 13px;
+      color: var(--text-inv-dim);
+      font-style: italic;
+    }
+    @media (max-width: 720px) {
+      .vv-gallery { grid-template-columns: 1fr; gap: 22px; }
+      .vv-shot__frame { max-height: 380px; }
+      .vv-foot { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 
   <!-- ============================ SCRIPT ============================ -->
   <script is:inline>
